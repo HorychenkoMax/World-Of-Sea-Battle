@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/main_window_images/mainWindowBackground.jpg</file>
+        <file>resources/main_window_images/SeaBatleMenuIcon.jpg</file>
+    </qresource>
+</RCC>

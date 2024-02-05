@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="mainWindoweIcon">
+          <property name="minimumSize">
+           <size>
+            <width>500</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="recources.qrc">:/resources/main_window_images/SeaBatleMenuIcon.jpg</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="hostButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    border-radius: 20px;
+    background-color: rgba(135, 206, 250, 0.5);
+    padding: 10px 20px;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 2px solid rgba(70, 130, 180, 0.5);
+    transition: background-color 0.3s;
+}
+
+QPushButton:hover {
+    background-color: rgba(135, 206, 250, 0.7); 
+}
+
+QPushButton:pressed {
+    background-color: rgba(70, 130, 180, 0.7); 
+    border: 2px solid rgba(70, 130, 180, 0.7);
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Start game as host</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ConnectButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    border-radius: 20px;
+    background-color: rgba(135, 206, 250, 0.5); 
+    padding: 10px 20px;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 2px solid rgba(70, 130, 180, 0.5);
+    transition: background-color 0.3s;
+}
+
+QPushButton:hover {
+    background-color: rgba(135, 206, 250, 0.7); 
+}
+
+QPushButton:pressed {
+    background-color: rgba(70, 130, 180, 0.7);
+    border: 2px solid rgba(70, 130, 180, 0.7);
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Connect to the host</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="changeSkinButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    border-radius: 20px;
+    background-color: rgba(135, 206, 250, 0.5); 
+    padding: 10px 20px;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 2px solid rgba(70, 130, 180, 0.5);
+    transition: background-color 0.3s;
+}
+
+QPushButton:hover {
+    background-color: rgba(135, 206, 250, 0.7);
+}
+
+QPushButton:pressed {
+    background-color: rgba(70, 130, 180, 0.7); 
+    border: 2px solid rgba(70, 130, 180, 0.7);
+}
+</string>
+          </property>
+          <property name="text">
+           <string>chang boat skin</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="optionButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    border-radius: 20px;
+    background-color: rgba(135, 206, 250, 0.5);
+    padding: 10px 20px;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 2px solid rgba(70, 130, 180, 0.5);
+    transition: background-color 0.3s;
+}
+
+QPushButton:hover {
+    background-color: rgba(135, 206, 250, 0.7); 
+}
+
+QPushButton:pressed {
+    background-color: rgba(70, 130, 180, 0.7); 
+    border: 2px solid rgba(70, 130, 180, 0.7);
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Options</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="recources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
