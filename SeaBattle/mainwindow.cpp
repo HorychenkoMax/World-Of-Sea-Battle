@@ -63,7 +63,8 @@ void MainWindow::setProgramView()
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
 
-    setWindowIcon(QIcon(WINDOW_ICON_PATH));
+    QApplication::setWindowIcon(QIcon(WINDOW_ICON_PATH));
+    //setWindowIcon();
     setWindowTitle("World Of Sea Battle");
 }
 

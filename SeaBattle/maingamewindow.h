@@ -2,6 +2,11 @@
 #define MAINGAMEWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
+#include <QPixmap>
+#include "mytablescene.h"
+#include "enemytablescene.h"
 
 namespace Ui {
 class MainGameWindow;
@@ -17,6 +22,12 @@ public:
 
 private:
     Ui::MainGameWindow *ui;
+    MyTableScene *myTableScene;
+    EnemyTableScene *enemyTableScene;
+
+    void setBackground();
+
+
 };
 
 #endif // MAINGAMEWINDOW_H

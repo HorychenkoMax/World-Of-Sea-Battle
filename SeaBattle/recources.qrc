@@ -4,5 +4,9 @@
         <file>resources/main_window_images/SeaBatleMenuIcon.jpg</file>
         <file>resources/main_window_images/optionWindowBackground.jpg</file>
         <file>resources/main_window_images/windowIcon.jpg</file>
+        <file>resources/game_window_images/gameWindowBackground.jpg</file>
+        <file>resources/game_window_images/battlefildImage2.jpg</file>
+        <file>resources/game_window_images/fog.png</file>
+        <file>resources/game_window_images/sight.png</file>
     </qresource>
 </RCC>
