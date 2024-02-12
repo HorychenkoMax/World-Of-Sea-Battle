@@ -2,7 +2,17 @@
 
 BattlefieldScene::BattlefieldScene(QObject *parent)
     : QGraphicsScene{parent}
-{}
+{
+
+    setBackgroundBrush(QColor(255, 255, 255));
+
+}
+
+BattlefieldScene::BattlefieldScene(qint32 w_background, qint32 h_background, QObject *parent) : w_background(w_background), h_background(h_background)
+{
+    setBackgroundBrush(QColor(255, 255, 255));
+
+}
 
 void BattlefieldScene::createBattlefield()
 {

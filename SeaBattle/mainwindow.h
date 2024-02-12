@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "maingamewindow.h"
+#include "locationselectionwindow.h"
 #include "connectionproperties.h"
 #include "optionswindow.h"
 
@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MainGameWindow *mainGameWindow;
+    LocationSelectionWindow *locationSelectionWindow;
     OptionsWindow *optionsWindow;
 
     const QString BACKGROUND_PATH = ":/resources/main_window_images/mainWindowBackground.jpg";

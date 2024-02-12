@@ -15,6 +15,8 @@ SOURCES += \
     cellmatrix.cpp \
     connectionproperties.cpp \
     enemytablescene.cpp \
+    locationselectionscene.cpp \
+    locationselectionwindow.cpp \
     main.cpp \
     maingamewindow.cpp \
     mainwindow.cpp \
@@ -31,6 +33,8 @@ HEADERS += \
     connectionproperties.h \
     direction.h \
     enemytablescene.h \
+    locationselectionscene.h \
+    locationselectionwindow.h \
     maingamewindow.h \
     mainwindow.h \
     mytablescene.h \
@@ -38,6 +42,7 @@ HEADERS += \
     socketserver.h
 
 FORMS += \
+    locationselectionwindow.ui \
     maingamewindow.ui \
     mainwindow.ui \
     optionswindow.ui

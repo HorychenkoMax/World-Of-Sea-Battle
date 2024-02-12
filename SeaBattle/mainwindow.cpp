@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mainGameWindow = new MainGameWindow();
+    locationSelectionWindow = new LocationSelectionWindow();
     optionsWindow = new OptionsWindow();
 
     setProgramView();
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete mainGameWindow;
+    delete locationSelectionWindow;
     delete optionsWindow;
 }
 
@@ -25,7 +25,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_hostButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForHosting()){
-        mainGameWindow->show();
+        locationSelectionWindow->show();
         hide();
     }else {
         getOptionWindow();

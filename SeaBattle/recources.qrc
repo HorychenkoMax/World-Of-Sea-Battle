@@ -8,5 +8,13 @@
         <file>resources/game_window_images/battlefildImage2.jpg</file>
         <file>resources/game_window_images/fog.png</file>
         <file>resources/game_window_images/sight.png</file>
+        <file>resources/ships_images/1battleship_remove_background.png</file>
+        <file>resources/ships_images/2battleship_remove_background.png</file>
+        <file>resources/ships_images/3battleship_remove_background.png</file>
+        <file>resources/ships_images/4battleship_remove_background.png</file>
+        <file>resources/ships_images/old/four_battleship-removebg.png</file>
+        <file>resources/ships_images/old/one_battleship-removebg.png</file>
+        <file>resources/ships_images/old/three_battleship-removebg.png</file>
+        <file>resources/ships_images/old/two_battleship-removebg.png</file>
     </qresource>
 </RCC>
