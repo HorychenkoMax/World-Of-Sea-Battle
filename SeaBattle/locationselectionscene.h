@@ -12,12 +12,9 @@ public:
     void rotate();
 
 private:
-    QGraphicsPixmapItem *four_deck_ship;
-    QGraphicsPixmapItem *three_deck_ship;
-    QGraphicsPixmapItem *two_deck_ship;
-    QGraphicsPixmapItem *one_deck_ship;
     Direction direction = Direction::LEFT;
     qint32 rotate_angle = 0;
+    QVector<Cell> ship_icons_arr;
 
 
     void drawShips();
