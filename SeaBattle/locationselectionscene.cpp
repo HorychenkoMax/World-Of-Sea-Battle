@@ -4,59 +4,74 @@ LocationSelectionScene::LocationSelectionScene(QObject *parent)
     : BattlefieldScene{498, 365, parent}
 {
     createBattlefield();
+    createShipsIkons();
     drawShips();
+}
+
+void LocationSelectionScene::rotate()
+{
+    if(direction == Direction::LEFT){
+        direction = Direction::DOWN;
+        rotate_angle = 90;
+    }else if(direction == Direction::DOWN){
+        direction = Direction::RIGHT;
+        rotate_angle = 180;
+    } else if(direction == Direction::RIGHT){
+        direction = Direction::UP;
+        rotate_angle = 270;
+    } else if(direction == Direction::UP){
+        direction = Direction::LEFT;
+        rotate_angle = 0;
+    }
+
+    four_deck_ship->setRotation(rotate_angle);
+    three_deck_ship->setRotation(rotate_angle);
+    two_deck_ship->setRotation(rotate_angle);
+    one_deck_ship->setRotation(rotate_angle);
 }
 
 void LocationSelectionScene::drawShips()
 {
-    QPixmap four_ship_pixmap(":/resources/ships_images/old/four_battleship-removebg.png");
-    QGraphicsPixmapItem *four_ship = new QGraphicsPixmapItem(
-        four_ship_pixmap.scaled(132, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    four_ship->setPos(363, 0);
-    addItem(four_ship);
+/*
+    one_ship->setTransformOriginPoint(one_ship->boundingRect().center());
+    one_ship->setRotation(360);
 
-    QPixmap three_ship_pixmap(":/resources/ships_images/old/three_battleship-removebg.png");
-    QGraphicsPixmapItem *three_ship = new QGraphicsPixmapItem(
-        three_ship_pixmap.scaled(99, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    three_ship->setPos(363, 33);
-    addItem(three_ship);
-
-    QPixmap two_ship_pixmap(":/resources/ships_images/old/two_battleship-removebg.png");
-    QGraphicsPixmapItem *two_ship = new QGraphicsPixmapItem(
-        two_ship_pixmap.scaled(66, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    two_ship->setPos(363, 66);
-    addItem(two_ship);
-
-    QPixmap one_ship_pixmap(":/resources/ships_images/old/one_battleship-removebg.png");
-    QGraphicsPixmapItem *one_ship = new QGraphicsPixmapItem(
-        one_ship_pixmap.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    one_ship->setPos(363, 99);
-    addItem(one_ship);
+    two_ship->setTransformOriginPoint(two_ship->boundingRect().center());
+    two_ship->setRotation(360);
 
 
+    three_ship->setTransformOriginPoint(three_ship->boundingRect().center());
+    three_ship->setRotation(360);
+*/
+}
 
-    QPixmap four_ship_pixmap_four(":/resources/ships_images/old/four_battleship_cut/four_battleship-removebg_4.png");
-    QGraphicsPixmapItem *four_ship_four = new QGraphicsPixmapItem(
-        four_ship_pixmap_four.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    four_ship_four->setPos(33, 33);
-    addItem(four_ship_four);
+void LocationSelectionScene::createShipsIkons()
+{
+    QPixmap four_deck_ship_pixmap(":/resources/ships_images/old/four_battleship-removebg.png");
+    four_deck_ship = new QGraphicsPixmapItem(
+        four_deck_ship_pixmap.scaled(132, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    four_deck_ship->setTransformOriginPoint(four_deck_ship->boundingRect().center());
+    four_deck_ship->setPos(363,33);
+    addItem(four_deck_ship);
 
-    QPixmap four_ship_pixmap_three(":/resources/ships_images/old/four_battleship_cut/four_battleship-removebg_3.png");
-    QGraphicsPixmapItem *four_ship_three = new QGraphicsPixmapItem(
-        four_ship_pixmap_three.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    four_ship_three->setPos(66, 33);
-    addItem(four_ship_three);
+    QPixmap three_deck_ship_pixmap(":/resources/ships_images/old/three_battleship-removebg.png");
+    three_deck_ship = new QGraphicsPixmapItem(
+        three_deck_ship_pixmap.scaled(99, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    three_deck_ship->setPos(363, 165);
+    three_deck_ship->setTransformOriginPoint(three_deck_ship->boundingRect().center());
+    addItem(three_deck_ship);
 
-    QPixmap four_ship_pixmap_two(":/resources/ships_images/old/four_battleship_cut/four_battleship-removebg_2.png");
-    QGraphicsPixmapItem *four_ship_two = new QGraphicsPixmapItem(
-        four_ship_pixmap_two.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    four_ship_two->setPos(99, 33);
-    addItem(four_ship_two);
+    QPixmap two_deck_ship_pixmap(":/resources/ships_images/old/two_battleship-removebg.png");
+    two_deck_ship = new QGraphicsPixmapItem(
+        two_deck_ship_pixmap.scaled(66, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    two_deck_ship->setTransformOriginPoint(two_deck_ship->boundingRect().center());
+    two_deck_ship->setPos(363, 264);
+    addItem(two_deck_ship);
 
-    QPixmap four_ship_pixmap_one(":/resources/ships_images/old/four_battleship_cut/four_battleship-removebg_1.png");
-    QGraphicsPixmapItem *four_ship_one = new QGraphicsPixmapItem(
-        four_ship_pixmap_one.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    four_ship_one->setPos(132, 33);
-    addItem(four_ship_one);
-
+    QPixmap one_deck_ship_pixmap(":/resources/ships_images/old/one_battleship-removebg.png");
+    one_deck_ship = new QGraphicsPixmapItem(
+        one_deck_ship_pixmap.scaled(33, 33, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    one_deck_ship->setTransformOriginPoint(one_deck_ship->boundingRect().center());
+    one_deck_ship->setPos(363, 330);
+    addItem(one_deck_ship);
 }

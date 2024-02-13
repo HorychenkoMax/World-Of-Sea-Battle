@@ -36,6 +36,6 @@ void LocationSelectionWindow::on_nextButton_clicked()
 
 void LocationSelectionWindow::on_rotateButton_clicked()
 {
-
+    locationSelectionScene->rotate();
 }
 
