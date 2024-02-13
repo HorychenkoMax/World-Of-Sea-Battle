@@ -2,6 +2,26 @@
 
 
 
+qint32 Boat::getHeadRow() const
+{
+    return head_row;
+}
+
+void Boat::setHeadRow(qint32 newHead_row)
+{
+    head_row = newHead_row;
+}
+
+qint32 Boat::getHeadColumn() const
+{
+    return head_column;
+}
+
+void Boat::setHeadColumn(qint32 newHead_column)
+{
+    head_column = newHead_column;
+}
+
 Boat::Boat(qint32 head_row, qint32 head_column, qint32 size, Direction direction)
     : head_row{head_row}, head_column{head_column}, size{size}, direction{direction}
 {

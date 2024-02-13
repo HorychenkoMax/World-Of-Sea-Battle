@@ -10,8 +10,8 @@ EnemyTableScene::EnemyTableScene(QObject *parent)
 
 void EnemyTableScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10; j++){
+    for(int i = 0; i < cells.size(); i++){
+        for(int j = 0; j < cells[i].size(); j++){
             if(cells[i][j].item->contains(event->scenePos())){
                 if(current_item_pos_i != -1 && current_item_pos_j != -1){
                      cells[current_item_pos_i][current_item_pos_j].image->setPixmap(fog);
