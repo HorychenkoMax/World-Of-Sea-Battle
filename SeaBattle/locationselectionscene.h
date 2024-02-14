@@ -11,11 +11,17 @@ struct BoatItem : public Cell
     Boat boat;
 };
 
-struct SizeItem : public Cell
+struct ShipIconItem
 {
-    SizeItem(qint32 size, qint32 count);
+    ShipIconItem(qint32 size, qint32 count);
+    QGraphicsRectItem *item;
+    QGraphicsPixmapItem *image_left;
+    QGraphicsPixmapItem *image_right;
+    QGraphicsPixmapItem *image_down;
+    QGraphicsPixmapItem *image_up;
     qint32 size, count;
 };
+
 
 class LocationSelectionScene : public BattlefieldScene
 {
@@ -25,11 +31,25 @@ public:
     void rotate();
 
 private:
+
+    QVector<QVector<QString>> path {{":/resources/ships_images/old/one_battleship/one_battleship-left.png",":/resources/ships_images/old/one_battleship/one_battleship-down.png",
+                                    ":/resources/ships_images/old/one_battleship/one_battleship-right.png",":/resources/ships_images/old/one_battleship/one_battleship-up.png"},
+                                   {":/resources/ships_images/old/two_battleship/two_battleship-left.png",":/resources/ships_images/old/two_battleship/two_battleship-down.png",
+                                    ":/resources/ships_images/old/two_battleship/two_battleship-right.png",":/resources/ships_images/old/two_battleship/two_battleship-up.png"},
+                                   {":/resources/ships_images/old/three_battleship/three_battleship-left.png",":/resources/ships_images/old/three_battleship/three_battleship-down.png",
+                                    ":/resources/ships_images/old/three_battleship/three_battleship-right.png",":/resources/ships_images/old/three_battleship/three_battleship-up.png"},
+                                   {":/resources/ships_images/old/four_battleship/four_battleship-left.png",":/resources/ships_images/old/four_battleship/four_battleship-down.png",
+                                    ":/resources/ships_images/old/four_battleship/four_battleship-right.png",":/resources/ships_images/old/four_battleship/four_battleship-up.png"}};
+    QVector<qint32> delta {1,2,4,7};
+
+
     Direction direction = Direction::LEFT;
-    qint32 rotate_angle = 0;
-    QVector<SizeItem> ship_icons_arr;
+    QVector<ShipIconItem> ship_icons_arr;
     QVector<BoatItem> ship_board_arr;
     BoatItem current_ship;
+    qint32 x_pos = 366, y_pos = 33;
+    qint32 w = 33, h = 33;
+    qint32 max_count = 5;
 
 
     void drawShips();

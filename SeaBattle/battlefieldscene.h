@@ -11,8 +11,8 @@
 
 struct Cell
 {
-    QGraphicsRectItem *item;
-    QGraphicsPixmapItem *image;
+    QGraphicsRectItem *item = nullptr;
+    QGraphicsPixmapItem *image = nullptr;
 };
 
 
