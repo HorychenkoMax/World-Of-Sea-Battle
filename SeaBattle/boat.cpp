@@ -22,6 +22,16 @@ void Boat::setHeadColumn(qint32 newHead_column)
     head_column = newHead_column;
 }
 
+Direction Boat::getDirection() const
+{
+    return direction;
+}
+
+qint32 Boat::getSize() const
+{
+    return size;
+}
+
 Boat::Boat(qint32 head_row, qint32 head_column, qint32 size, Direction direction)
     : head_row{head_row}, head_column{head_column}, size{size}, direction{direction}
 {

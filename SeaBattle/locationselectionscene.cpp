@@ -14,25 +14,25 @@ void LocationSelectionScene::rotate()
         direction = Direction::DOWN;
         for(int i = 0; i < ship_icons_arr.size(); i++){
             ship_icons_arr[i].image_left->hide();
-            ship_icons_arr[i].image_down->show();
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_down->show();
         }
     }else if(direction == Direction::DOWN){
         direction = Direction::RIGHT;
         for(int i = 0; i < ship_icons_arr.size(); i++){
             ship_icons_arr[i].image_down->hide();
-            ship_icons_arr[i].image_right->show();
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_right->show();
         }
     } else if(direction == Direction::RIGHT){
         direction = Direction::UP;
         for(int i = 0; i < ship_icons_arr.size(); i++){
             ship_icons_arr[i].image_right->hide();
-            ship_icons_arr[i].image_up->show();
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_up->show();
         }
     } else if(direction == Direction::UP){
         direction = Direction::LEFT;
         for(int i = 0; i < ship_icons_arr.size(); i++){
             ship_icons_arr[i].image_up->hide();
-            ship_icons_arr[i].image_left->show();
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_left->show();
         }
     }
 }
@@ -85,70 +85,89 @@ void LocationSelectionScene::createShipsIkons()
 
 void LocationSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    /*
+
     if(current_ship.item) return;
+
+    QGraphicsPixmapItem *image;
+
     for(auto &ship:ship_icons_arr){
+
         if(ship.item->contains(event->scenePos()) && ship.count > 0){
+
+            switch (direction) {
+            case Direction::LEFT:
+                image = ship.image_left;
+                break;
+            case Direction::DOWN:
+                image = ship.image_down;
+                break;
+            case Direction::RIGHT:
+                image = ship.image_right;
+                break;
+            case Direction::UP:
+                image = ship.image_up;
+                break;
+
+            }
+
+
+
             QGraphicsRectItem *rect = new QGraphicsRectItem();
-            rect->setRect(ship.item->rect());
-            rect->setTransformOriginPoint(rect->rect().center());
+            rect->setRect(image->boundingRect());
+            rect->setPos(image->pos());
             rect->setBrush(QColor("red"));
-            rect->setRotation(ship.item->rotation());
             rect->setOpacity(1);
             addItem(rect);
 
 
-            QGraphicsPixmapItem *image = new QGraphicsPixmapItem(ship.image->pixmap());
-            image->setTransformOriginPoint(image->boundingRect().center());
-            image->setPos(ship.image->pos());
-            image->setRotation(ship.image->rotation());
-            addItem(image);
+            QGraphicsPixmapItem *new_image = new QGraphicsPixmapItem(image->pixmap());
+            new_image->setTransformOriginPoint(image->boundingRect().center());
+            new_image->setPos(image->pos());
+            new_image->setRotation(image->rotation());
+            addItem(new_image);
 
 
-            current_ship.image = image;
+            current_ship.image = new_image;
             current_ship.item = rect;
             current_ship.boat = Boat(-1, -1, ship.size, direction);
             ship.count--;
             if(ship.count <= 0){
-                ship.image->setOpacity(0);
+                image->setOpacity(0);
+
             }
         }
     }
-*/
+
 }
 
 void LocationSelectionScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-  /*
     if(!current_ship.image || !current_ship.item) return;
-    current_ship.image->setTransformOriginPoint(current_ship.image->boundingRect().topRight());
     current_ship.image->setPos(event->scenePos());
-    current_ship.item->setTransformOriginPoint(0,0);
-    current_ship.item->setRect(event->scenePos().rx(), event->scenePos().ry(), current_ship.item->rect().width(), current_ship.item->rect().height());
-*/
-
+    current_ship.item->setPos(event->scenePos());
 }
 
 void LocationSelectionScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    /*
+
     if(!current_ship.image || !current_ship.item) return;
     for(int i = 0; i < cells.size(); i++){
         for(int j = 0; j < cells[i].size(); j++){
-            qDebug() << cells[i][j].item->rect();
+
             if(cells[i][j].item->contains(event->scenePos())){
 
                 current_ship.image->setPos(cells[i][j].item->rect().x(), cells[i][j].item->rect().y());
-                current_ship.item->setRect(cells[i][j].item->rect().x(), cells[i][j].item->rect().y(), current_ship.item->rect().width(), current_ship.item->rect().height());
+                current_ship.item->setPos(cells[i][j].item->rect().x(), cells[i][j].item->rect().y());
                 current_ship.boat.setHeadRow(i);
                 current_ship.boat.setHeadColumn(j);
                 ship_board_arr.append(current_ship);
                 current_ship.item = nullptr;
                 current_ship.image = nullptr;
+
             }
         }
     }
-    */
+
 
 }
 

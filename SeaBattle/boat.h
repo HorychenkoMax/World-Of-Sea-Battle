@@ -25,6 +25,8 @@ public:
     qint32 getHeadColumn() const;
     void setHeadColumn(qint32 newHead_column);
 
+    Direction getDirection() const;
+    qint32 getSize() const;
 };
 
 #endif // BOAT_H
