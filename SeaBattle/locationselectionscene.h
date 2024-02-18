@@ -5,10 +5,12 @@
 #include "direction.h"
 #include <QGraphicsSceneMouseEvent>
 #include "boat.h"
+#include "cellmatrix.h"
 
 struct BoatItem : public Cell
 {
     Boat boat;
+    bool operator == (const BoatItem &boatItem) const;
 };
 
 struct ShipIconItem
@@ -47,6 +49,7 @@ private:
     QVector<ShipIconItem> ship_icons_arr;
     QVector<BoatItem> ship_board_arr;
     BoatItem current_ship;
+    CellMatrix cell_matrix;
     qint32 x_pos = 366, y_pos = 33;
     qint32 w = 33, h = 33;
     qint32 max_count = 5;
@@ -54,6 +57,9 @@ private:
 
     void drawShips();
     void createShipsIkons();
+    bool isCorrectPosition(qint32 boat_i, qint32 boat_j);
+    void update();
+    void fillBoatInMatrix(const Boat &boat, CellType type = CellType::BOAT);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;

@@ -83,6 +83,81 @@ void LocationSelectionScene::createShipsIkons()
     }
 }
 
+bool LocationSelectionScene::isCorrectPosition(qint32 boat_i, qint32 boat_j)
+{
+    if((current_ship.boat.getDirection() == Direction::LEFT || current_ship.boat.getDirection() == Direction::RIGHT)
+        && current_ship.boat.getSize() > cells[boat_i].size() - boat_j) return false;
+    if((current_ship.boat.getDirection() == Direction::DOWN || current_ship.boat.getDirection() == Direction::UP)
+        && current_ship.boat.getSize() > cells.size() - boat_i) return false;
+
+
+    qint32 size_i = current_ship.boat.getSize();
+    qint32 size_j = current_ship.boat.getSize();
+
+    switch (current_ship.boat.getDirection()) {
+    case Direction::LEFT :
+    case Direction::RIGHT:
+        size_i = 1;
+        break;
+    default:
+        size_j = 1;
+    }
+
+    for(qint32 i = qMax(boat_i - 1, 0); i < qMin(size_i + 1 + boat_i, 10); i++){
+        for(qint32 j = qMax(boat_j - 1, 0); j < qMin(size_j + 1 + boat_j, 10); j++){
+            if(cell_matrix(i,j) == CellType::BOAT) return false;
+        }
+    }
+
+    return true;
+}
+
+void LocationSelectionScene::update()
+{
+
+    if(direction == Direction::LEFT){
+        for(int i = 0; i < ship_icons_arr.size(); i++){
+            qDebug() << ship_icons_arr[i].count;
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_left->setOpacity(1);
+        }
+    }else if(direction == Direction::DOWN){
+        for(int i = 0; i < ship_icons_arr.size(); i++){
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_down->setOpacity(1);
+        }
+    } else if(direction == Direction::RIGHT){
+        for(int i = 0; i < ship_icons_arr.size(); i++){
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_right->setOpacity(1);
+        }
+    } else if(direction == Direction::UP){
+        for(int i = 0; i < ship_icons_arr.size(); i++){
+            if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_up->setOpacity(1);
+        }
+    }
+}
+
+
+void LocationSelectionScene::fillBoatInMatrix(const Boat &boat, CellType type)
+{
+    //fillMatrix(boat, CellType::BOAT_BOARDER);
+    qint32 i = boat.getHeadRow();
+    qint32 j = boat.getHeadColumn();
+    qint32 delta_i = 0;
+    qint32 delta_j = 0;
+
+    switch (boat.getDirection()) {
+    case Direction::LEFT :
+    case Direction::RIGHT:
+        delta_j = 1;
+        break;
+    default:
+        delta_i = 1;
+    }
+
+    for(qint32 x = 0; x < boat.getSize(); x++){
+        cell_matrix(i + x*delta_i,j + x*delta_j) = type;
+    }
+}
+
 void LocationSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
@@ -113,17 +188,16 @@ void LocationSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 
             QGraphicsRectItem *rect = new QGraphicsRectItem();
+
             rect->setRect(image->boundingRect());
             rect->setPos(image->pos());
-            rect->setBrush(QColor("red"));
-            rect->setOpacity(1);
+            //rect->setBrush(QColor("red"));
+            rect->setOpacity(0);
             addItem(rect);
 
 
             QGraphicsPixmapItem *new_image = new QGraphicsPixmapItem(image->pixmap());
-            new_image->setTransformOriginPoint(image->boundingRect().center());
             new_image->setPos(image->pos());
-            new_image->setRotation(image->rotation());
             addItem(new_image);
 
 
@@ -138,35 +212,62 @@ void LocationSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         }
     }
 
+    for(auto &ship:ship_board_arr){
+        qDebug() << ship.item->contains(event->scenePos()) << ship.item->rect() << event->scenePos();
+        if(ship.item->contains(event->scenePos())){
+            qDebug() << "yes";
+            current_ship.image = ship.image;
+            current_ship.item = ship.item;
+            current_ship.boat = ship.boat;
+            fillBoatInMatrix(current_ship.boat, CellType::NONE);
+            ship_board_arr.removeOne(ship);
+            break;
+        }
+    }
+
 }
 
 void LocationSelectionScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if(!current_ship.image || !current_ship.item) return;
     current_ship.image->setPos(event->scenePos());
-    current_ship.item->setPos(event->scenePos());
 }
 
 void LocationSelectionScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 
     if(!current_ship.image || !current_ship.item) return;
+
     for(int i = 0; i < cells.size(); i++){
         for(int j = 0; j < cells[i].size(); j++){
 
             if(cells[i][j].item->contains(event->scenePos())){
 
+                if(isCorrectPosition(i,j)){
                 current_ship.image->setPos(cells[i][j].item->rect().x(), cells[i][j].item->rect().y());
-                current_ship.item->setPos(cells[i][j].item->rect().x(), cells[i][j].item->rect().y());
+                current_ship.item->setRect(cells[i][j].item->rect().x(), cells[i][j].item->rect().y(), current_ship.item->rect().width(), current_ship.item->rect().height());
                 current_ship.boat.setHeadRow(i);
                 current_ship.boat.setHeadColumn(j);
                 ship_board_arr.append(current_ship);
+                fillBoatInMatrix(current_ship.boat);
                 current_ship.item = nullptr;
                 current_ship.image = nullptr;
-
+                return;
+                }
             }
+
         }
     }
+    for(auto &ship:ship_icons_arr){
+        if(ship.size == current_ship.boat.getSize()){
+            ship.count++;
+        }
+    }
+    update();
+    delete current_ship.image;
+    delete current_ship.item;
+    current_ship.item = nullptr;
+    current_ship.image = nullptr;
 
 
 }
@@ -179,4 +280,9 @@ void LocationSelectionScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 ShipIconItem::ShipIconItem(qint32 size, qint32 count): size(size), count(count)
 {
 
+}
+
+bool BoatItem::operator ==(const BoatItem &boatItem) const
+{
+    return this == &boatItem;
 }
