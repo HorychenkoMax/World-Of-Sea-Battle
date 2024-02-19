@@ -71,11 +71,18 @@ void BattlefieldScene::createBattlefield()
             QGraphicsRectItem *rect = new QGraphicsRectItem();
             rect->setRect(delta_pos_x, delta_pos_y, w_rect, h_rect);
             addItem(rect);
-            delta_pos_x = delta_pos_x + w_rect;
+
             Cell cell;
             cell.item = rect;
-            //cell.image = image;
+
+            QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
+            image->setPos(delta_pos_x, delta_pos_y);
+            addItem(image);
+
+            delta_pos_x = delta_pos_x + w_rect;
+            cell.image = image;
             cell_array.append(cell);
+
         }
 
         delta_pos_x = 0;

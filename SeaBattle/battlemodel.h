@@ -14,6 +14,7 @@ public:
     BattleModel(const QVector<Boat> &boats, const CellMatrix &cells);
 
     CellType attack(qint32 index1, qint32 index2);
+    QVector<Boat> getBoats() const;
 };
 
 #endif // BATTLEMODEL_H

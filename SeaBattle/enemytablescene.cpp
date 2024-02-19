@@ -27,18 +27,15 @@ void EnemyTableScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void EnemyTableScene::drawFog()
 {
-    for(int i = 0; i < 11; i++){
-        for(int j = 0; j < 11; j++){
-            if(i == 0 || j == 0) {
-                delta_pos_x += w_rect;
-                continue;
-            }
+    for(int i = 0; i < cells.size(); i++){
+        for(int j = 0; j < cells[i].size(); j++){
+
             QPixmap fog_pixmap(":/resources/game_window_images/fog.png");
-            QGraphicsPixmapItem* fog = new QGraphicsPixmapItem(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-            fog->setPos(delta_pos_x, delta_pos_y);
-            addItem(fog);
-            delta_pos_x += w_rect;
-            cells[i-1][j-1].image = fog;
+            //QGraphicsPixmapItem* fog = new QGraphicsPixmapItem(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+            //fog->setPos(delta_pos_x, delta_pos_y);
+            //addItem(fog);
+            //delta_pos_x += w_rect;
+            cells[i][j].image->setPixmap(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         }
         delta_pos_x = 0;
         delta_pos_y += h_rect;

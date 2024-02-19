@@ -5,7 +5,6 @@ LocationSelectionScene::LocationSelectionScene(QObject *parent)
 {
     createBattlefield();
     createShipsIkons();
-    //drawShips();
 }
 
 void LocationSelectionScene::rotate()
@@ -35,11 +34,6 @@ void LocationSelectionScene::rotate()
             if(ship_icons_arr[i].count != 0) ship_icons_arr[i].image_left->show();
         }
     }
-}
-
-void LocationSelectionScene::drawShips()
-{
-
 }
 
 void LocationSelectionScene::createShipsIkons()
@@ -156,6 +150,20 @@ void LocationSelectionScene::fillBoatInMatrix(const Boat &boat, CellType type)
     for(qint32 x = 0; x < boat.getSize(); x++){
         cell_matrix(i + x*delta_i,j + x*delta_j) = type;
     }
+}
+
+QVector<Boat> LocationSelectionScene::fromBooatItemToBoat()
+{
+    QVector<Boat> boats;
+    for(auto &ship:ship_board_arr){
+        boats.append(ship.boat);
+    }
+    return boats;
+}
+
+CellMatrix LocationSelectionScene::getCell_matrix() const
+{
+    return cell_matrix;
 }
 
 void LocationSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *event)

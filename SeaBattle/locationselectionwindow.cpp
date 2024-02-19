@@ -28,7 +28,8 @@ void LocationSelectionWindow::setBackground()
 
 void LocationSelectionWindow::on_nextButton_clicked()
 {
-    mainGameWindow = new MainGameWindow();
+    BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
+    mainGameWindow = new MainGameWindow(battleModel);
     mainGameWindow->show();
     hide();
 }

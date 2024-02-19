@@ -31,6 +31,9 @@ public:
     explicit LocationSelectionScene(QObject *parent = nullptr);
 
     void rotate();
+    QVector<Boat> fromBooatItemToBoat();
+
+    CellMatrix getCell_matrix() const;
 
 private:
 
@@ -55,11 +58,12 @@ private:
     qint32 max_count = 5;
 
 
-    void drawShips();
+
     void createShipsIkons();
     bool isCorrectPosition(qint32 boat_i, qint32 boat_j);
     void update();
     void fillBoatInMatrix(const Boat &boat, CellType type = CellType::BOAT);
+
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
