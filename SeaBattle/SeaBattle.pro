@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     mytablescene.cpp \
     optionswindow.cpp \
+    socketclient.cpp \
     socketserver.cpp
 
 HEADERS += \
@@ -39,6 +40,7 @@ HEADERS += \
     mainwindow.h \
     mytablescene.h \
     optionswindow.h \
+    socketclient.h \
     socketserver.h
 
 FORMS += \

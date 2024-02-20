@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     setProgramView();
 
     ConnectionProperties::init();
+    connect(&server, SIGNAL(newClient(SocketClient)), this, SLOT(newClient(SocketClient)));
 }
 
 MainWindow::~MainWindow()
@@ -25,8 +26,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_hostButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForHosting()){
-        locationSelectionWindow->show();
-        hide();
+        server.run(ConnectionProperties::init()->getMy_host_id(), ConnectionProperties::init()->getMy_port());
+        //locationSelectionWindow->show();
+        //hide();
     }else {
         getOptionWindow();
     }
@@ -37,7 +39,9 @@ void MainWindow::on_hostButton_clicked()
 void MainWindow::on_ConnectButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForConnection()){
-
+        client.run(ConnectionProperties::init()->getOther_host_id(), ConnectionProperties::init()->getOther_port());
+        //locationSelectionWindow->show();
+        //hide();
     }else {
         getOptionWindow();
     }
@@ -53,6 +57,11 @@ void MainWindow::on_changeSkinButton_clicked()
 void MainWindow::on_optionButton_clicked()
 {
     getOptionWindow();
+}
+
+void MainWindow::newClient(SocketClient client)
+{
+    qDebug() << "main window take client";
 }
 
 void MainWindow::setProgramView()

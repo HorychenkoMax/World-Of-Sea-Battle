@@ -5,6 +5,7 @@
 #include "locationselectionwindow.h"
 #include "connectionproperties.h"
 #include "optionswindow.h"
+#include "socketserver.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,10 +28,13 @@ private slots:
 
     void on_optionButton_clicked();
 
+    void newClient(SocketClient client);
 private:
     Ui::MainWindow *ui;
     LocationSelectionWindow *locationSelectionWindow;
     OptionsWindow *optionsWindow;
+    SocketServer server;
+    SocketClient client;
 
     const QString BACKGROUND_PATH = ":/resources/main_window_images/mainWindowBackground.jpg";
     const QString WINDOW_ICON_PATH = ":/resources/main_window_images/windowIcon.jpg";

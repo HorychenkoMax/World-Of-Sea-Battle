@@ -15,6 +15,7 @@ LocationSelectionWindow::LocationSelectionWindow(QWidget *parent)
 LocationSelectionWindow::~LocationSelectionWindow()
 {
     delete ui;
+    delete mainGameWindow;
 }
 
 void LocationSelectionWindow::setBackground()
