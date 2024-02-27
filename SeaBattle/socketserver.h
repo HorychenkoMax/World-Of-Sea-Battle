@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include "socketclient.h"
+#include <QRandomGenerator>
 
 class SocketServer : public QObject
 {
@@ -15,7 +16,7 @@ public:
     void run(const QString &host, qint32 port);
 
 signals:
-    void newClient(SocketClient client);
+    void newClient(SocketClient *client);
 
 private slots:
     void newConnection();

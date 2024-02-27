@@ -1,9 +1,10 @@
 #include "locationselectionwindow.h"
 #include "ui_locationselectionwindow.h"
 
-LocationSelectionWindow::LocationSelectionWindow(QWidget *parent)
+LocationSelectionWindow::LocationSelectionWindow(SocketClient *client, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LocationSelectionWindow)
+    , client(client)
 {
     ui->setupUi(this);
     setBackground();
@@ -30,7 +31,7 @@ void LocationSelectionWindow::setBackground()
 void LocationSelectionWindow::on_nextButton_clicked()
 {
     BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
-    mainGameWindow = new MainGameWindow(battleModel);
+    mainGameWindow = new MainGameWindow(client ,battleModel);
     mainGameWindow->show();
     hide();
 }

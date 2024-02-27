@@ -28,13 +28,15 @@ private slots:
 
     void on_optionButton_clicked();
 
-    void newClient(SocketClient client);
+    void newClient(SocketClient *client);
+
+    void connectedToHost();
 private:
     Ui::MainWindow *ui;
     LocationSelectionWindow *locationSelectionWindow;
     OptionsWindow *optionsWindow;
     SocketServer server;
-    SocketClient client;
+    SocketClient *client;
 
     const QString BACKGROUND_PATH = ":/resources/main_window_images/mainWindowBackground.jpg";
     const QString WINDOW_ICON_PATH = ":/resources/main_window_images/windowIcon.jpg";

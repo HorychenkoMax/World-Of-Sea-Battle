@@ -2,6 +2,11 @@
 
 
 
+bool SocketClient::getIsMyTurn() const
+{
+    return isMyTurn;
+}
+
 void SocketClient::connectAll()
 {
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
@@ -15,8 +20,9 @@ SocketClient::SocketClient()
     connectAll();
 }
 
-SocketClient::SocketClient(QTcpSocket *socket)
+SocketClient::SocketClient(QTcpSocket *socket, bool isMyTurn)
     : socket(socket)
+    , isMyTurn(isMyTurn)
 {
     connectAll();
 }
@@ -43,6 +49,7 @@ void SocketClient::run(const QString &host, qint32 port)
 void SocketClient::connected()
 {
     qDebug() << "connected";
+    emit(connectedToHost());
 }
 
 void SocketClient::disconnected()
@@ -53,6 +60,7 @@ void SocketClient::disconnected()
 void SocketClient::readyRead()
 {
     QString string(socket->readAll());
+    /*
     qDebug() << string;
     if(string == "Hello from server"){
 
@@ -60,5 +68,12 @@ void SocketClient::readyRead()
         send("Hi from client");
     }else if(string == "Hi from client"){
         qDebug() << "client say \" Hi from client \" ";
+    }
+    */
+    if(string.startsWith("isMyTurn=")){
+        qint32 number = string.sliced(9).toInt();
+        isMyTurn = number == 1;
+    }else{
+        emit(readFromOponent(string));
     }
 }

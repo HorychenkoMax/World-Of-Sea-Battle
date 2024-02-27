@@ -9,14 +9,17 @@ class SocketClient : public QObject
     Q_OBJECT
 private:
     QTcpSocket *socket;
+    bool isMyTurn = false;
 
     void connectAll();
 public:
     explicit SocketClient();
-    explicit SocketClient(QTcpSocket *socket);
+    explicit SocketClient(QTcpSocket *socket, bool isMyTurn);
     SocketClient(const SocketClient &client);
     void send(const QString &data);
     void run(const QString &host, qint32 port);
+
+    bool getIsMyTurn() const;
 
 private slots:
     void connected();
@@ -25,6 +28,8 @@ private slots:
 
 
 signals:
+    void connectedToHost();
+    void readFromOponent(const QString &string);
 };
 
 #endif // SOCKETCLIENT_H

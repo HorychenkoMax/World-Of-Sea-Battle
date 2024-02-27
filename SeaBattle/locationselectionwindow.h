@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "maingamewindow.h"
 #include "locationselectionscene.h"
+#include "socketclient.h"
 
 namespace Ui {
 class LocationSelectionWindow;
@@ -14,7 +15,7 @@ class LocationSelectionWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LocationSelectionWindow(QWidget *parent = nullptr);
+    explicit LocationSelectionWindow(SocketClient *client ,QWidget *parent = nullptr);
     ~LocationSelectionWindow();
 
 private slots:
@@ -26,6 +27,7 @@ private:
     Ui::LocationSelectionWindow *ui;
     MainGameWindow *mainGameWindow;
     LocationSelectionScene *locationSelectionScene;
+    SocketClient *client;
 
 
     void setBackground();

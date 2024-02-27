@@ -3,7 +3,7 @@
 SocketServer::SocketServer()
 {
     server = new QTcpServer();
-
+    connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
 void SocketServer::run(const QString &host, qint32 port)
@@ -19,7 +19,9 @@ void SocketServer::run(const QString &host, qint32 port)
 void SocketServer::newConnection()
 {
     QTcpSocket *socket = server->nextPendingConnection();
-    SocketClient client(socket);
-    client.send("Hello from server");
+    qint32 number = QRandomGenerator::global()->bounded(0,1);
+    SocketClient *client = new SocketClient(socket, number == 1);
+
+    client->send("isMyTurn=" + QString::number(1 - number));
     emit newClient(client);
 }

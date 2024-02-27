@@ -42,6 +42,16 @@ void EnemyTableScene::drawFog()
     }
 }
 
+qint32 EnemyTableScene::getCurrent_item_pos_i() const
+{
+    return current_item_pos_i;
+}
+
+qint32 EnemyTableScene::getCurrent_item_pos_j() const
+{
+    return current_item_pos_j;
+}
+
 void EnemyTableScene::createPixmaps()
 {
     sight = QPixmap(":/resources/game_window_images/sight.png");

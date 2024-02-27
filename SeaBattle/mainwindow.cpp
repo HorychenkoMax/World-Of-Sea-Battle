@@ -6,13 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    locationSelectionWindow = new LocationSelectionWindow();
+
     optionsWindow = new OptionsWindow();
 
     setProgramView();
 
     ConnectionProperties::init();
-    connect(&server, SIGNAL(newClient(SocketClient)), this, SLOT(newClient(SocketClient)));
+    connect(&server, SIGNAL(newClient(SocketClient*)), this, SLOT(newClient(SocketClient*)));
+
+    client = new SocketClient();
+    connect(client, SIGNAL(connectedToHost()), this, SLOT(connectedToHost()));
 }
 
 MainWindow::~MainWindow()
@@ -20,6 +23,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete locationSelectionWindow;
     delete optionsWindow;
+    delete client;
 }
 
 
@@ -27,8 +31,6 @@ void MainWindow::on_hostButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForHosting()){
         server.run(ConnectionProperties::init()->getMy_host_id(), ConnectionProperties::init()->getMy_port());
-        //locationSelectionWindow->show();
-        //hide();
     }else {
         getOptionWindow();
     }
@@ -39,9 +41,8 @@ void MainWindow::on_hostButton_clicked()
 void MainWindow::on_ConnectButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForConnection()){
-        client.run(ConnectionProperties::init()->getOther_host_id(), ConnectionProperties::init()->getOther_port());
-        //locationSelectionWindow->show();
-        //hide();
+        client->run(ConnectionProperties::init()->getOther_host_id(), ConnectionProperties::init()->getOther_port());
+
     }else {
         getOptionWindow();
     }
@@ -59,9 +60,19 @@ void MainWindow::on_optionButton_clicked()
     getOptionWindow();
 }
 
-void MainWindow::newClient(SocketClient client)
+void MainWindow::newClient(SocketClient *client)
 {
-    qDebug() << "main window take client";
+    qDebug() << "connected";
+    locationSelectionWindow = new LocationSelectionWindow(client);
+    locationSelectionWindow->show();
+    hide();
+}
+
+void MainWindow::connectedToHost()
+{
+    locationSelectionWindow = new LocationSelectionWindow(client);
+    locationSelectionWindow->show();
+    hide();
 }
 
 void MainWindow::setProgramView()
