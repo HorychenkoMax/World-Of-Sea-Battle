@@ -5,10 +5,10 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 #include <QPixmap>
-#include "mytablescene.h"
-#include "enemytablescene.h"
-#include "battlemodel.h"
-#include "socketclient.h"
+#include "scenes/mytablescene.h"
+#include "scenes/enemytablescene.h"
+#include "models/battlemodel.h"
+#include "socket/socketclient.h"
 
 namespace Ui {
 class MainGameWindow;

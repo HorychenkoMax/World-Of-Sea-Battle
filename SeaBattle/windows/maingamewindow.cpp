@@ -1,4 +1,4 @@
-#include "maingamewindow.h"
+#include "windows/maingamewindow.h"
 #include "ui_maingamewindow.h"
 
 MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, QWidget *parent)
@@ -18,7 +18,8 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
     enemyTableScene = new EnemyTableScene();
     ui->enemyTable->setScene(enemyTableScene);
 
-    connect(client, SIGNAL(readFromOponent(const QString &)),this, SLOT(readFromOponent(const QString &)));
+    connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
+    //connect(client, SIGNAL(readFromOponent(QString)),this, SLOT(readFromOponent(QString)));
 }
 
 MainGameWindow::~MainGameWindow()
@@ -49,7 +50,11 @@ void MainGameWindow::readFromOponent(const QString &string)
         }
         qint32 i = list[0].toInt();
         qint32 j = list[1].toInt();
-        CellType result =  battleModel->attack(i,j);
+        //CellType result =  battleModel->attack(i,j);
+        //client->send("result=" + QString::number((qint32)result));
+        //isMyTurn = true;
+        //ui->attack->setEnabled(true);
+        CellType result = battleModel->attack(i,j);
         client->send("result=" + QString::number((qint32)result));
         isMyTurn = true;
         ui->attack->setEnabled(true);

@@ -1,4 +1,4 @@
-#include "optionswindow.h"
+#include "windows/optionswindow.h"
 #include "ui_optionswindow.h"
 
 OptionsWindow::OptionsWindow(QWidget *parent)

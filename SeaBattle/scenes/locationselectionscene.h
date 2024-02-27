@@ -1,11 +1,11 @@
 #ifndef LOCATIONSELECTIONSCENE_H
 #define LOCATIONSELECTIONSCENE_H
 
-#include "battlefieldscene.h"
-#include "direction.h"
+#include "scenes/battlefieldscene.h"
+#include "models/direction.h"
 #include <QGraphicsSceneMouseEvent>
-#include "boat.h"
-#include "cellmatrix.h"
+#include "models/boat.h"
+#include "models/cellmatrix.h"
 
 struct BoatItem : public Cell
 {

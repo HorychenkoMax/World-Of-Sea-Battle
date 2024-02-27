@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "locationselectionwindow.h"
-#include "connectionproperties.h"
-#include "optionswindow.h"
-#include "socketserver.h"
+#include "windows/locationselectionwindow.h"
+#include "models/connectionproperties.h"
+#include "windows/optionswindow.h"
+#include "socket/socketserver.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

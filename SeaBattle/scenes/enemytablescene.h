@@ -1,7 +1,7 @@
 #ifndef ENEMYTABLESCENE_H
 #define ENEMYTABLESCENE_H
 
-#include "battlefieldscene.h"
+#include "scenes/battlefieldscene.h"
 
 class EnemyTableScene : public BattlefieldScene
 {

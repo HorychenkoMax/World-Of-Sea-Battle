@@ -1,4 +1,4 @@
-#include "connectionproperties.h"
+#include "models/connectionproperties.h"
 
 ConnectionProperties* ConnectionProperties::conectionProperties = nullptr;
 

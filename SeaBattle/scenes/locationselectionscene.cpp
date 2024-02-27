@@ -1,4 +1,4 @@
-#include "locationselectionscene.h"
+#include "scenes/locationselectionscene.h"
 
 LocationSelectionScene::LocationSelectionScene(QObject *parent)
     : BattlefieldScene{498, 365, parent}

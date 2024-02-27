@@ -2,7 +2,7 @@
 #define OPTIONSWINDOW_H
 
 #include <QDialog>
-#include "connectionproperties.h"
+#include "models/connectionproperties.h"
 
 namespace Ui {
 class OptionsWindow;

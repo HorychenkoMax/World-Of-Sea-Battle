@@ -2,7 +2,7 @@
 #define BOAT_H
 
 #include <QString>
-#include "direction.h"
+#include "models/direction.h"
 
 class Boat
 {

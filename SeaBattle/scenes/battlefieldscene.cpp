@@ -1,4 +1,4 @@
-#include "battlefieldscene.h"
+#include "scenes/battlefieldscene.h"
 
 BattlefieldScene::BattlefieldScene(QObject *parent)
     : QGraphicsScene{parent}

@@ -1,4 +1,4 @@
-#include "mytablescene.h"
+#include "scenes/mytablescene.h"
 
 MyTableScene::MyTableScene(QObject *parent)
     : BattlefieldScene{parent}

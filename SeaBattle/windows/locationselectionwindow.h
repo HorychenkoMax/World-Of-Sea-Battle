@@ -2,9 +2,9 @@
 #define LOCATIONSELECTIONWINDOW_H
 
 #include <QMainWindow>
-#include "maingamewindow.h"
-#include "locationselectionscene.h"
-#include "socketclient.h"
+#include "windows/maingamewindow.h"
+#include "scenes/locationselectionscene.h"
+#include "socket/socketclient.h"
 
 namespace Ui {
 class LocationSelectionWindow;

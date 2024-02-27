@@ -1,4 +1,4 @@
-#include "locationselectionwindow.h"
+#include "windows/locationselectionwindow.h"
 #include "ui_locationselectionwindow.h"
 
 LocationSelectionWindow::LocationSelectionWindow(SocketClient *client, QWidget *parent)

@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTcpServer>
-#include "socketclient.h"
+#include "socket/socketclient.h"
 #include <QRandomGenerator>
 
 class SocketServer : public QObject

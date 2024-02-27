@@ -1,4 +1,4 @@
-#include "enemytablescene.h"
+#include "scenes/enemytablescene.h"
 
 EnemyTableScene::EnemyTableScene(QObject *parent)
     : BattlefieldScene{parent}

@@ -1,4 +1,4 @@
-#include "battlemodel.h"
+#include "models/battlemodel.h"
 
 
 QVector<Boat> BattleModel::getBoats() const
@@ -7,6 +7,11 @@ QVector<Boat> BattleModel::getBoats() const
 }
 
 BattleModel::BattleModel(const QVector<Boat> &boats, const CellMatrix &cells) : boats(boats), cells(cells)
+{
+
+}
+
+CellType BattleModel::attack(qint32 index1, qint32 index2)
 {
 
 }

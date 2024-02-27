@@ -1,7 +1,7 @@
 #ifndef CELLMATRIX_H
 #define CELLMATRIX_H
 
-#include "celltype.h"
+#include "models/celltype.h"
 #include "qtypes.h"
 
 class CellMatrix{

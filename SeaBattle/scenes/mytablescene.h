@@ -2,8 +2,8 @@
 #define MYTABLESCENE_H
 
 #include <QGraphicsScene>
-#include "battlefieldscene.h"
-#include "boat.h"
+#include "scenes/battlefieldscene.h"
+#include "models/boat.h"
 
 class MyTableScene : public BattlefieldScene
 {

@@ -2,8 +2,8 @@
 #define BATTLEMODEL_H
 
 #include <QVector>
-#include "boat.h"
-#include "cellmatrix.h"
+#include "models/boat.h"
+#include "models/cellmatrix.h"
 
 class BattleModel
 {
