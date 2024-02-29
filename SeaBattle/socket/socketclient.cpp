@@ -54,22 +54,12 @@ void SocketClient::connected()
 
 void SocketClient::disconnected()
 {
-    qDebug() << "disconnected";
+    emit(oponentDisconnected());
 }
 
 void SocketClient::readyRead()
 {
     QString string(socket->readAll());
-    /*
-    qDebug() << string;
-    if(string == "Hello from server"){
-
-        qDebug() << "server say \"Hello from server \" ";
-        send("Hi from client");
-    }else if(string == "Hi from client"){
-        qDebug() << "client say \" Hi from client \" ";
-    }
-    */
     if(string.startsWith("isMyTurn=")){
         qint32 number = string.sliced(9).toInt();
         isMyTurn = number == 1;

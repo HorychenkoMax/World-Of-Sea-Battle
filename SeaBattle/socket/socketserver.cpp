@@ -6,14 +6,9 @@ SocketServer::SocketServer()
     connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
-void SocketServer::run(const QString &host, qint32 port)
+bool SocketServer::run(const QString &host, qint32 port)
 {
-    if(server->listen(QHostAddress(host), port)){
-        qDebug() << "vishlo";
-    }else {
-        qDebug() << "shos ne duze vishlo";
-    }
-
+    return server->listen(QHostAddress(host), port);
 }
 
 void SocketServer::newConnection()
@@ -24,4 +19,5 @@ void SocketServer::newConnection()
 
     client->send("isMyTurn=" + QString::number(1 - number));
     emit newClient(client);
+    server->close();
 }

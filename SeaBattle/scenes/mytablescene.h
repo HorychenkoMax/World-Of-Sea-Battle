@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include "scenes/battlefieldscene.h"
 #include "models/boat.h"
+#include "models/celltype.h"
 
 class MyTableScene : public BattlefieldScene
 {
@@ -11,6 +12,7 @@ public:
     explicit MyTableScene(QObject *parent = nullptr);
 
     void drawBoats(const QVector<Boat> boats);
+    void drawEffect(qint32 i, qint32 j, CellType type);
 
 private:
     QVector<QVector<QGraphicsRectItem>> boats_matrix;

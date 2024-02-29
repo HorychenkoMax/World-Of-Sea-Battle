@@ -11,7 +11,7 @@ void MyTableScene::drawBoats(const QVector<Boat> boats)
     for(int i = 0; i < boats.size(); i++){
         qint32 current_boat_row = 0;
         qint32 current_boat_column = 0;
-        qint32 path_size = 0;
+       // qint32 path_size = 0;
         switch (boats[i].getDirection()) {
         case Direction::LEFT:
             rotation_angle = 0;
@@ -50,6 +50,17 @@ void MyTableScene::drawBoats(const QVector<Boat> boats)
         }
     }
 
+}
+
+void MyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
+{
+    if(type == CellType::MISS){
+        QPixmap splater(":/resources/effects/splater.jpg");
+        cells[i][j].image->setPixmap(splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }else if(type == CellType::HURT){
+        QPixmap boom(":/resources/effects/boom.png");
+        cells[i][j].image->setPixmap(boom.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    }
 }
 
 

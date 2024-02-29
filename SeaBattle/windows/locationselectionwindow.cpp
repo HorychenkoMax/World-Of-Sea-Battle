@@ -2,15 +2,18 @@
 #include "ui_locationselectionwindow.h"
 
 LocationSelectionWindow::LocationSelectionWindow(SocketClient *client, QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(nullptr)
     , ui(new Ui::LocationSelectionWindow)
     , client(client)
+    , parent(parent)
 {
     ui->setupUi(this);
     setBackground();
 
     locationSelectionScene = new LocationSelectionScene();
     ui->locationSelectionView->setScene(locationSelectionScene);
+
+    connect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
 }
 
 LocationSelectionWindow::~LocationSelectionWindow()
@@ -31,14 +34,21 @@ void LocationSelectionWindow::setBackground()
 void LocationSelectionWindow::on_nextButton_clicked()
 {
     BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
-    mainGameWindow = new MainGameWindow(client ,battleModel);
+    mainGameWindow = new MainGameWindow(client ,battleModel, parent);
     mainGameWindow->show();
-    hide();
+    close();
 }
 
 
 void LocationSelectionWindow::on_rotateButton_clicked()
 {
     locationSelectionScene->rotate();
+}
+
+void LocationSelectionWindow::oponentDisconnected()
+{
+    QMessageBox::critical(this, "System message", "Oponent Disconnected");
+    parent->show();
+    close();
 }
 

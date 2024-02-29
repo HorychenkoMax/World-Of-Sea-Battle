@@ -6,6 +6,7 @@
 #include "models/connectionproperties.h"
 #include "windows/optionswindow.h"
 #include "socket/socketserver.h"
+#include "windows/loadingwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,10 +34,11 @@ private slots:
     void connectedToHost();
 private:
     Ui::MainWindow *ui;
-    LocationSelectionWindow *locationSelectionWindow;
+    LocationSelectionWindow *locationSelectionWindow = nullptr;
     OptionsWindow *optionsWindow;
     SocketServer server;
     SocketClient *client;
+    LoadingWindow *loadingWindow;
 
     const QString BACKGROUND_PATH = ":/resources/main_window_images/mainWindowBackground.jpg";
     const QString WINDOW_ICON_PATH = ":/resources/main_window_images/windowIcon.jpg";

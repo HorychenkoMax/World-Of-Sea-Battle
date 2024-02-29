@@ -2,11 +2,12 @@
 #include "ui_maingamewindow.h"
 
 MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(nullptr)
     , ui(new Ui::MainGameWindow)
+    , parent(parent)
     , battleModel(battleModel)
     , client(client)
-    , isMyTurn(client->getIsMyTurn())
+    ,isMyTurn(client->getIsMyTurn())
 {
     ui->setupUi(this);
     setBackground();
@@ -19,7 +20,7 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
     ui->enemyTable->setScene(enemyTableScene);
 
     connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
-    //connect(client, SIGNAL(readFromOponent(QString)),this, SLOT(readFromOponent(QString)));
+    connect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
 }
 
 MainGameWindow::~MainGameWindow()
@@ -28,6 +29,7 @@ MainGameWindow::~MainGameWindow()
     delete myTableScene;
     delete enemyTableScene;
     delete client;
+
 }
 
 void MainGameWindow::setBackground()
@@ -38,6 +40,7 @@ void MainGameWindow::setBackground()
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
 }
+
 
 void MainGameWindow::readFromOponent(const QString &string)
 {
@@ -50,26 +53,46 @@ void MainGameWindow::readFromOponent(const QString &string)
         }
         qint32 i = list[0].toInt();
         qint32 j = list[1].toInt();
-        //CellType result =  battleModel->attack(i,j);
-        //client->send("result=" + QString::number((qint32)result));
-        //isMyTurn = true;
-        //ui->attack->setEnabled(true);
         CellType result = battleModel->attack(i,j);
-        client->send("result=" + QString::number((qint32)result));
+        if(result != CellType::ERROR){
+            client->send("result=" + QString::number((qint32)result));
+            myTableScene->drawEffect(i,j, result);
+            if(result == CellType::MISS){
+                isMyTurn = true;
+                ui->attack->setEnabled(isMyTurn);
+            }
+        }else{
+            client->send("exist_status");
+        }
+    }else if(string.startsWith("result=")){
+        CellType type = (CellType)string.sliced(7).toInt();
+        enemyTableScene->drawEffect(current_i, current_j, type);
+        if(type == CellType::HURT){
+            isMyTurn = true;
+            ui->attack->setEnabled(isMyTurn);
+        }
+    }else if(string.startsWith("exist_status")){
         isMyTurn = true;
-        ui->attack->setEnabled(true);
+        ui->attack->setEnabled(isMyTurn);
     }
 }
 
 void MainGameWindow::on_attack_clicked()
 {
-
     if(!isMyTurn) return;
-    qint32 i = enemyTableScene->getCurrent_item_pos_i();
-    qint32 j = enemyTableScene->getCurrent_item_pos_j();
-    if(i == -1 || j == -1) return;
-    client->send("attack=" + QString::number(i) + " " + QString::number(j));
+    current_i = enemyTableScene->getCurrent_item_pos_i();
+    current_j = enemyTableScene->getCurrent_item_pos_j();
+    enemyTableScene->setStartPosition();
+    if(current_i == -1 || current_j == -1) return;
+    client->send("attack=" + QString::number(current_i) + " " + QString::number(current_j));
     isMyTurn = false;
     ui->attack->setEnabled(isMyTurn);
+}
+
+void MainGameWindow::oponentDisconnected()
+{
+    QMessageBox::critical(this, "System message", "Oponent Disconnected");
+    parent->show();
+    close();
 }
 

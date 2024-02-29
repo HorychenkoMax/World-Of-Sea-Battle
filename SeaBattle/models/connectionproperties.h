@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QRegularExpression>
 
 class ConnectionProperties
 {
@@ -13,7 +14,9 @@ private:
 
     const QString FILE_NAME = "connectionInformation.txt";
 
-    QString my_host_id, other_host_id;
+    const QRegularExpression ipRegex{"\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b"};
+
+    QString my_host_ip, other_host_ip;
     qint32 my_port, other_port;
 
     ConnectionProperties();

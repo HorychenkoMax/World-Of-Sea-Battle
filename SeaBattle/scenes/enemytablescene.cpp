@@ -12,13 +12,13 @@ void EnemyTableScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     for(int i = 0; i < cells.size(); i++){
         for(int j = 0; j < cells[i].size(); j++){
-            if(cells[i][j].item->contains(event->scenePos())){
+            if(cells[i][j].item->contains(event->scenePos()) && !cells[i][j].isClicked){
                 if(current_item_pos_i != -1 && current_item_pos_j != -1){
-                     cells[current_item_pos_i][current_item_pos_j].image->setPixmap(fog);
+                    cells[current_item_pos_i][current_item_pos_j].image->setPixmap(fog);
                 }
                 current_item_pos_i = i;
                 current_item_pos_j = j;
-                qDebug() << i+1 <<(char)(j+'A');
+                //qDebug() << i+1 <<(char)(j+'A');
                 cells[i][j].image->setPixmap(sight);
             }
         }
@@ -31,15 +31,30 @@ void EnemyTableScene::drawFog()
         for(int j = 0; j < cells[i].size(); j++){
 
             QPixmap fog_pixmap(":/resources/game_window_images/fog.png");
-            //QGraphicsPixmapItem* fog = new QGraphicsPixmapItem(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-            //fog->setPos(delta_pos_x, delta_pos_y);
-            //addItem(fog);
-            //delta_pos_x += w_rect;
             cells[i][j].image->setPixmap(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         }
         delta_pos_x = 0;
         delta_pos_y += h_rect;
     }
+}
+
+void EnemyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
+{
+    if(type == CellType::MISS){
+        QPixmap splater(":/resources/effects/splater.jpg");
+        cells[i][j].image->setPixmap(splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        cells[i][j].isClicked = true;
+    }else if(type == CellType::HURT){
+        QPixmap boom(":/resources/effects/boom.png");
+        cells[i][j].image->setPixmap(boom.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        cells[i][j].isClicked = true;
+    }
+}
+
+void EnemyTableScene::setStartPosition()
+{
+    current_item_pos_i = -1;
+    current_item_pos_j = -1;
 }
 
 qint32 EnemyTableScene::getCurrent_item_pos_i() const

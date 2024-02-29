@@ -16,25 +16,34 @@ MainWindow::MainWindow(QWidget *parent)
 
     client = new SocketClient();
     connect(client, SIGNAL(connectedToHost()), this, SLOT(connectedToHost()));
+
+    loadingWindow = new LoadingWindow();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete locationSelectionWindow;
+    if(locationSelectionWindow){
+        delete locationSelectionWindow;
+    }
     delete optionsWindow;
     delete client;
+    delete loadingWindow;
 }
 
 
 void MainWindow::on_hostButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForHosting()){
-        server.run(ConnectionProperties::init()->getMy_host_id(), ConnectionProperties::init()->getMy_port());
-    }else {
-        getOptionWindow();
+        bool isSuccess = server.run(ConnectionProperties::init()->getMy_host_id(), ConnectionProperties::init()->getMy_port());
+        if(isSuccess){
+            loadingWindow->show();
+            return;
+        }
     }
 
+    QMessageBox::critical(this, "Invalid information", "You have provided valid host data(ip, port)");
+    getOptionWindow();
 }
 
 
@@ -42,7 +51,7 @@ void MainWindow::on_ConnectButton_clicked()
 {
     if(ConnectionProperties::init()->corectInformationForConnection()){
         client->run(ConnectionProperties::init()->getOther_host_id(), ConnectionProperties::init()->getOther_port());
-
+        loadingWindow->show();
     }else {
         getOptionWindow();
     }
@@ -63,14 +72,16 @@ void MainWindow::on_optionButton_clicked()
 void MainWindow::newClient(SocketClient *client)
 {
     qDebug() << "connected";
-    locationSelectionWindow = new LocationSelectionWindow(client);
+    loadingWindow->hide();
+    locationSelectionWindow = new LocationSelectionWindow(client, this);
     locationSelectionWindow->show();
     hide();
 }
 
 void MainWindow::connectedToHost()
 {
-    locationSelectionWindow = new LocationSelectionWindow(client);
+    loadingWindow->hide();
+    locationSelectionWindow = new LocationSelectionWindow(client, this);
     locationSelectionWindow->show();
     hide();
 }

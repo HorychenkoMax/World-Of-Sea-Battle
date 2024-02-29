@@ -2,6 +2,7 @@
 #define LOCATIONSELECTIONWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "windows/maingamewindow.h"
 #include "scenes/locationselectionscene.h"
 #include "socket/socketclient.h"
@@ -15,7 +16,7 @@ class LocationSelectionWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LocationSelectionWindow(SocketClient *client ,QWidget *parent = nullptr);
+    explicit LocationSelectionWindow(SocketClient *client ,QWidget *parent);
     ~LocationSelectionWindow();
 
 private slots:
@@ -23,11 +24,14 @@ private slots:
 
     void on_rotateButton_clicked();
 
+    void oponentDisconnected();
+
 private:
     Ui::LocationSelectionWindow *ui;
     MainGameWindow *mainGameWindow;
     LocationSelectionScene *locationSelectionScene;
     SocketClient *client;
+    QWidget *parent;
 
 
     void setBackground();

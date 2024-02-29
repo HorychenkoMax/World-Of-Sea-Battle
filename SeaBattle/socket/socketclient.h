@@ -30,6 +30,7 @@ private slots:
 signals:
     void connectedToHost();
     void readFromOponent(const QString &string);
+    void oponentDisconnected();
 };
 
 #endif // SOCKETCLIENT_H

@@ -26,9 +26,9 @@ void ConnectionProperties::saveInformation()
 
     QTextStream stream(&file);
 
-    stream << "my_host_id:" <<my_host_id << "\n";
+    stream << "my_host_id:" <<my_host_ip << "\n";
     stream << "my_port:" << my_port << "\n";
-    stream << "other_host_id:" << other_host_id << "\n";
+    stream << "other_host_id:" << other_host_ip << "\n";
     stream << "other_port:" << other_port << "\n";
 
     file.close();
@@ -50,13 +50,13 @@ void ConnectionProperties::downloadInformation()
     while (!stream.atEnd()) {
 
         line = stream.readLine();
-        my_host_id = line.sliced(11);
+        my_host_ip = line.sliced(11);
 
         line = stream.readLine();
         my_port = line.sliced(8).toInt();
 
         line = stream.readLine();
-        other_host_id = line.sliced(14);
+        other_host_ip = line.sliced(14);
 
         line = stream.readLine();
         other_port = line.sliced(11).toInt();
@@ -67,18 +67,20 @@ void ConnectionProperties::downloadInformation()
 
 bool ConnectionProperties::corectInformationForHosting()
 {
-    return my_host_id != "" && my_port > 0;
+    QRegularExpressionMatch match = ipRegex.match(my_host_ip);
+    return match.hasMatch() && my_port > 0;
 }
 
 bool ConnectionProperties::corectInformationForConnection()
 {
-    return other_host_id != "" && other_port > 0;
+    QRegularExpressionMatch match = ipRegex.match(other_host_ip);
+    return match.hasMatch() && other_port > 0;
 }
 
 void ConnectionProperties::setAllInformation(const QString &my_host_id, const QString &other_host_id, qint32 my_port, qint32 other_port)
 {
-    this->my_host_id = my_host_id;
-    this->other_host_id = other_host_id;
+    this->my_host_ip = my_host_id;
+    this->other_host_ip = other_host_id;
     this->my_port = my_port;
     this->other_port = other_port;
     saveInformation();
@@ -86,22 +88,22 @@ void ConnectionProperties::setAllInformation(const QString &my_host_id, const QS
 
 QString ConnectionProperties::getMy_host_id() const
 {
-    return my_host_id;
+    return my_host_ip;
 }
 
 void ConnectionProperties::setMy_host_id(const QString &newMy_host_id)
 {
-    my_host_id = newMy_host_id;
+    my_host_ip = newMy_host_id;
 }
 
 QString ConnectionProperties::getOther_host_id() const
 {
-    return other_host_id;
+    return other_host_ip;
 }
 
 void ConnectionProperties::setOther_host_id(const QString &newOther_host_id)
 {
-    other_host_id = newOther_host_id;
+    other_host_ip = newOther_host_id;
 }
 
 qint32 ConnectionProperties::getMy_port() const

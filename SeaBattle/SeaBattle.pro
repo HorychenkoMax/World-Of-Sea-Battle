@@ -20,6 +20,7 @@ SOURCES += \
     scenes/mytablescene.cpp \
     socket/socketclient.cpp \
     socket/socketserver.cpp \
+    windows/loadingwindow.cpp \
     windows/locationselectionwindow.cpp \
     windows/maingamewindow.cpp \
     windows/mainwindow.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     scenes/mytablescene.h \
     socket/socketclient.h \
     socket/socketserver.h \
+    windows/loadingwindow.h \
     windows/locationselectionwindow.h \
     windows/maingamewindow.h \
     windows/mainwindow.h \
@@ -46,6 +48,7 @@ HEADERS += \
 
 
 FORMS += \
+    loadingwindow.ui \
     locationselectionwindow.ui \
     maingamewindow.ui \
     mainwindow.ui \

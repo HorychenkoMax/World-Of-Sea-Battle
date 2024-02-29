@@ -13,7 +13,7 @@ private:
     QTcpServer *server;
 public:
     explicit SocketServer();
-    void run(const QString &host, qint32 port);
+    bool run(const QString &host, qint32 port);
 
 signals:
     void newClient(SocketClient *client);

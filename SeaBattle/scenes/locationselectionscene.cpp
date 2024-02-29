@@ -281,10 +281,6 @@ void LocationSelectionScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
-
-
-
-
 ShipIconItem::ShipIconItem(qint32 size, qint32 count): size(size), count(count)
 {
 

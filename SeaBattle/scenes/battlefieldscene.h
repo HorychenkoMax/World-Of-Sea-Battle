@@ -13,6 +13,7 @@ struct Cell
 {
     QGraphicsRectItem *item = nullptr;
     QGraphicsPixmapItem *image = nullptr;
+    bool isClicked = false;
 };
 
 
