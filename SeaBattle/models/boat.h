@@ -8,7 +8,7 @@ class Boat
 {
 
 private:
-    qint32 head_row, head_column, size, damage_number_of_boat;
+    qint32 head_row, head_column, size, damage_number_of_deck = 0;
     Direction direction;
 public:
     Boat() = default;

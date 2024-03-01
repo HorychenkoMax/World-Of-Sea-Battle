@@ -35,6 +35,8 @@ public:
 
     CellMatrix getCell_matrix() const;
 
+    bool isAllShipsOnBoard();
+
 private:
 
     QVector<QVector<QString>> path {{":/resources/ships_images/old/one_battleship/one_battleship-left.png",":/resources/ships_images/old/one_battleship/one_battleship-down.png",
@@ -63,6 +65,7 @@ private:
     bool isCorrectPosition(qint32 boat_i, qint32 boat_j);
     void update();
     void fillBoatInMatrix(const Boat &boat, CellType type = CellType::BOAT);
+
 
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

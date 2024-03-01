@@ -19,7 +19,7 @@ public:
 
 private:
     qint32 current_item_pos_i = -1, current_item_pos_j = -1;
-    QPixmap fog, sight;
+    QPixmap fog, sight, splater, boom;
 
     void createPixmaps();
 };

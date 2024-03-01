@@ -54,16 +54,31 @@ void MainGameWindow::readFromOponent(const QString &string)
         qint32 i = list[0].toInt();
         qint32 j = list[1].toInt();
         CellType result = battleModel->attack(i,j);
-        if(result != CellType::ERROR){
-            client->send("result=" + QString::number((qint32)result));
-            myTableScene->drawEffect(i,j, result);
-            if(result == CellType::MISS){
-                isMyTurn = true;
-                ui->attack->setEnabled(isMyTurn);
-            }
-        }else{
+        if(result == CellType::ERROR){
             client->send("exist_status");
+            return;
         }
+        if(result == CellType::DESTROYED){
+            Boat* boat = battleModel->getBoatByHisDeck(i,j);
+            QString new_result = "destroyed=";
+            new_result = new_result + QString::number(boat->getHeadRow()) + ":" + QString::number(boat->getHeadColumn())
+                        + ":" + QString::number(boat->getSize()) + ":" + QString::number((qint32)boat->getDirection());
+            client->send(new_result);
+
+            //need to add a drawing implementation for my board
+
+            return;
+        }
+
+        client->send("result=" + QString::number((qint32)result));
+        myTableScene->drawEffect(i,j, result);
+
+        if(result == CellType::MISS){
+            isMyTurn = true;
+            ui->attack->setEnabled(isMyTurn);
+        }
+        return;
+
     }else if(string.startsWith("result=")){
         CellType type = (CellType)string.sliced(7).toInt();
         enemyTableScene->drawEffect(current_i, current_j, type);
@@ -71,9 +86,20 @@ void MainGameWindow::readFromOponent(const QString &string)
             isMyTurn = true;
             ui->attack->setEnabled(isMyTurn);
         }
+        return;
     }else if(string.startsWith("exist_status")){
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);
+        return;
+    }else if(string.startsWith("destroyed=")){
+        QString info = string.sliced(10);
+        QStringList list = info.split(":");
+
+        //need to add a drawing implementation for enemy board
+
+        isMyTurn = true;
+        ui->attack->setEnabled(isMyTurn);
+        return;
     }
 }
 
@@ -84,9 +110,9 @@ void MainGameWindow::on_attack_clicked()
     current_j = enemyTableScene->getCurrent_item_pos_j();
     enemyTableScene->setStartPosition();
     if(current_i == -1 || current_j == -1) return;
-    client->send("attack=" + QString::number(current_i) + " " + QString::number(current_j));
     isMyTurn = false;
     ui->attack->setEnabled(isMyTurn);
+    client->send("attack=" + QString::number(current_i) + " " + QString::number(current_j));
 }
 
 void MainGameWindow::oponentDisconnected()

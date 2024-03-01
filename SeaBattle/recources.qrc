@@ -34,6 +34,6 @@
         <file>resources/ships_images/old/two_battleship/two_battleship_cut/two_battleship-removebg_1.png</file>
         <file>resources/ships_images/old/two_battleship/two_battleship_cut/two_battleship-removebg_2.png</file>
         <file>resources/effects/boom.png</file>
-        <file>resources/effects/splater.jpg</file>
+        <file>resources/effects/splater.png</file>
     </qresource>
 </RCC>

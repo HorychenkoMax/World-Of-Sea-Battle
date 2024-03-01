@@ -152,6 +152,14 @@ void LocationSelectionScene::fillBoatInMatrix(const Boat &boat, CellType type)
     }
 }
 
+bool LocationSelectionScene::isAllShipsOnBoard()
+{
+    for(auto &ship_icon : ship_icons_arr){
+        if(ship_icon.count != 0) return false;
+    }
+    return true;
+}
+
 QVector<Boat> LocationSelectionScene::fromBooatItemToBoat()
 {
     QVector<Boat> boats;

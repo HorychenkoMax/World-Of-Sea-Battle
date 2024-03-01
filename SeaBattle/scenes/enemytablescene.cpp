@@ -4,8 +4,8 @@ EnemyTableScene::EnemyTableScene(QObject *parent)
     : BattlefieldScene{parent}
 {
     createBattlefield();
-    drawFog();
     createPixmaps();
+    drawFog(); 
 }
 
 void EnemyTableScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -29,9 +29,7 @@ void EnemyTableScene::drawFog()
 {
     for(int i = 0; i < cells.size(); i++){
         for(int j = 0; j < cells[i].size(); j++){
-
-            QPixmap fog_pixmap(":/resources/game_window_images/fog.png");
-            cells[i][j].image->setPixmap(fog_pixmap.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+            cells[i][j].image->setPixmap(fog);
         }
         delta_pos_x = 0;
         delta_pos_y += h_rect;
@@ -41,12 +39,10 @@ void EnemyTableScene::drawFog()
 void EnemyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
 {
     if(type == CellType::MISS){
-        QPixmap splater(":/resources/effects/splater.jpg");
-        cells[i][j].image->setPixmap(splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        cells[i][j].image->setPixmap(splater);
         cells[i][j].isClicked = true;
     }else if(type == CellType::HURT){
-        QPixmap boom(":/resources/effects/boom.png");
-        cells[i][j].image->setPixmap(boom.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        cells[i][j].image->setPixmap(boom);
         cells[i][j].isClicked = true;
     }
 }
@@ -73,4 +69,8 @@ void EnemyTableScene::createPixmaps()
     sight = sight.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     fog = QPixmap(":/resources/game_window_images/fog.png");
     fog = fog.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    splater = QPixmap(":/resources/effects/splater.png");
+    splater = splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    boom = QPixmap(":/resources/effects/boom.png");
+    boom = boom.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 }

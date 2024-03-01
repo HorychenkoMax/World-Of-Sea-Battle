@@ -55,7 +55,7 @@ void MyTableScene::drawBoats(const QVector<Boat> boats)
 void MyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
 {
     if(type == CellType::MISS){
-        QPixmap splater(":/resources/effects/splater.jpg");
+        QPixmap splater(":/resources/effects/splater.png");
         cells[i][j].image->setPixmap(splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     }else if(type == CellType::HURT){
         QPixmap boom(":/resources/effects/boom.png");

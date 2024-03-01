@@ -33,10 +33,12 @@ void LocationSelectionWindow::setBackground()
 
 void LocationSelectionWindow::on_nextButton_clicked()
 {
-    BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
-    mainGameWindow = new MainGameWindow(client ,battleModel, parent);
-    mainGameWindow->show();
-    close();
+    if(locationSelectionScene->isAllShipsOnBoard()){
+        BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
+        mainGameWindow = new MainGameWindow(client ,battleModel, parent);
+        mainGameWindow->show();
+        close();
+    }
 }
 
 

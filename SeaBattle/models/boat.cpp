@@ -41,15 +41,13 @@ Boat::Boat(qint32 head_row, qint32 head_column, qint32 size, Direction direction
 bool Boat::contains(qint32 given_row, qint32 given_column)
 {
     switch (direction) {
-    case Direction::LEFT:
-        return head_row == given_row && (given_column <= head_column && given_column > head_column - size);
+
     case Direction::RIGHT:
-
+    case Direction::LEFT:
         return head_row == given_row && (given_column >= head_column && given_column < head_column + size);
-    case Direction::UP:
 
-        return head_column == given_column && (given_row <= head_row && given_row > head_row - size);
     case Direction::DOWN:
+    case Direction::UP:
 
         return head_column == given_column && (given_row >= head_row && given_row < head_row + size);
     }
@@ -57,10 +55,10 @@ bool Boat::contains(qint32 given_row, qint32 given_column)
 
 void Boat::damage()
 {
-    damage_number_of_boat++;
+    damage_number_of_deck++;
 }
 
 bool Boat::isDestroyed()
 {
-    return damage_number_of_boat >= size;
+    return damage_number_of_deck >= size;
 }
