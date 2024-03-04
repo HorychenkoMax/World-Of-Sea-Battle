@@ -34,6 +34,7 @@ void LocationSelectionWindow::setBackground()
 void LocationSelectionWindow::on_nextButton_clicked()
 {
     if(locationSelectionScene->isAllShipsOnBoard()){
+        disconnect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
         BattleModel *battleModel = new BattleModel(locationSelectionScene->fromBooatItemToBoat(), locationSelectionScene->getCell_matrix());
         mainGameWindow = new MainGameWindow(client ,battleModel, parent);
         mainGameWindow->show();

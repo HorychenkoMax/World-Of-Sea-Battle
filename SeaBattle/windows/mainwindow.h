@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include "windows/locationselectionwindow.h"
 #include "models/connectionproperties.h"
 #include "models/linkmodel.h"
@@ -46,5 +47,6 @@ private:
 
     void setProgramView();
     void getOptionWindow();
+    void newClientAfterWaiting(SocketClient *client);
 };
 #endif // MAINWINDOW_H

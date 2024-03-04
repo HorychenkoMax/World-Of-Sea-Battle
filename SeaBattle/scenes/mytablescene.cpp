@@ -63,7 +63,6 @@ void MyTableScene::drawBoats(const QVector<Boat> boats)
             }
         }
     }
-
 }
 
 void MyTableScene::drawEffect(qint32 i, qint32 j, CellType type)

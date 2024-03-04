@@ -17,6 +17,7 @@ SOURCES += \
     models/linkmodel.cpp \
     scenes/battlefieldscene.cpp \
     scenes/enemytablescene.cpp \
+    scenes/loadingscene.cpp \
     scenes/locationselectionscene.cpp \
     scenes/mytablescene.cpp \
     socket/socketclient.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     models/linkmodel.h \
     scenes/battlefieldscene.h \
     scenes/enemytablescene.h \
+    scenes/loadingscene.h \
     scenes/locationselectionscene.h \
     scenes/mytablescene.h \
     socket/socketclient.h \
