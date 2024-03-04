@@ -6,9 +6,19 @@ SocketServer::SocketServer()
     connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
 }
 
+SocketServer::~SocketServer()
+{
+    delete server;
+}
+
 bool SocketServer::run(const QString &host, qint32 port)
 {
     return server->listen(QHostAddress(host), port);
+}
+
+void SocketServer::close()
+{
+    server->close();
 }
 
 void SocketServer::newConnection()

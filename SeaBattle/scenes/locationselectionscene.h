@@ -6,6 +6,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include "models/boat.h"
 #include "models/cellmatrix.h"
+#include "models/linkmodel.h"
 
 struct BoatItem : public Cell
 {
@@ -38,15 +39,6 @@ public:
     bool isAllShipsOnBoard();
 
 private:
-
-    QVector<QVector<QString>> path {{":/resources/ships_images/old/one_battleship/one_battleship-left.png",":/resources/ships_images/old/one_battleship/one_battleship-down.png",
-                                    ":/resources/ships_images/old/one_battleship/one_battleship-right.png",":/resources/ships_images/old/one_battleship/one_battleship-up.png"},
-                                   {":/resources/ships_images/old/two_battleship/two_battleship-left.png",":/resources/ships_images/old/two_battleship/two_battleship-down.png",
-                                    ":/resources/ships_images/old/two_battleship/two_battleship-right.png",":/resources/ships_images/old/two_battleship/two_battleship-up.png"},
-                                   {":/resources/ships_images/old/three_battleship/three_battleship-left.png",":/resources/ships_images/old/three_battleship/three_battleship-down.png",
-                                    ":/resources/ships_images/old/three_battleship/three_battleship-right.png",":/resources/ships_images/old/three_battleship/three_battleship-up.png"},
-                                   {":/resources/ships_images/old/four_battleship/four_battleship-left.png",":/resources/ships_images/old/four_battleship/four_battleship-down.png",
-                                    ":/resources/ships_images/old/four_battleship/four_battleship-right.png",":/resources/ships_images/old/four_battleship/four_battleship-up.png"}};
     QVector<qint32> delta {1,2,4,7};
 
 

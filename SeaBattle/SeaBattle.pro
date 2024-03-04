@@ -14,8 +14,10 @@ SOURCES += \
     models/boat.cpp \
     models/cellmatrix.cpp \
     models/connectionproperties.cpp \
+    models/linkmodel.cpp \
     scenes/battlefieldscene.cpp \
     scenes/enemytablescene.cpp \
+    scenes/loadingscene.cpp \
     scenes/locationselectionscene.cpp \
     scenes/mytablescene.cpp \
     socket/socketclient.cpp \
@@ -34,8 +36,10 @@ HEADERS += \
     models/celltype.h \
     models/connectionproperties.h \
     models/direction.h \
+    models/linkmodel.h \
     scenes/battlefieldscene.h \
     scenes/enemytablescene.h \
+    scenes/loadingscene.h \
     scenes/locationselectionscene.h \
     scenes/mytablescene.h \
     socket/socketclient.h \

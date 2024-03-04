@@ -13,7 +13,9 @@ private:
     QTcpServer *server;
 public:
     explicit SocketServer();
+    ~SocketServer();
     bool run(const QString &host, qint32 port);
+    void close();
 
 signals:
     void newClient(SocketClient *client);

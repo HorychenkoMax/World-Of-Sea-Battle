@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     client = new SocketClient();
     connect(client, SIGNAL(connectedToHost()), this, SLOT(connectedToHost()));
 
-    loadingWindow = new LoadingWindow();
+    loadingWindow = new LoadingWindow([&](){server.close();});
 }
 
 MainWindow::~MainWindow()
@@ -69,13 +69,17 @@ void MainWindow::on_optionButton_clicked()
     getOptionWindow();
 }
 
-void MainWindow::newClient(SocketClient *client)
+void MainWindow::newClientAfterWaiting(SocketClient *client)
 {
-    qDebug() << "connected";
     loadingWindow->hide();
     locationSelectionWindow = new LocationSelectionWindow(client, this);
     locationSelectionWindow->show();
     hide();
+}
+
+void MainWindow::newClient(SocketClient *client)
+{
+    QTimer::singleShot(2000, this, [this, client](){newClientAfterWaiting(client);});
 }
 
 void MainWindow::connectedToHost()
@@ -105,4 +109,6 @@ void MainWindow::getOptionWindow()
     optionsWindow->setModal(true);
     optionsWindow->exec();
 }
+
+
 

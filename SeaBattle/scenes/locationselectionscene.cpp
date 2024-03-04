@@ -38,6 +38,7 @@ void LocationSelectionScene::rotate()
 
 void LocationSelectionScene::createShipsIkons()
 {
+    QVector<QVector<QString>> path = LinkModel::init()->getListOfShipsIconsPath();
     for(int i = 1; i < path.size() + 1; i++){
         ShipIconItem icon(i, max_count -i);
 

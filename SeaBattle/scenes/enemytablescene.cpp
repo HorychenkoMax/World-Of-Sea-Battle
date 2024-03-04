@@ -53,6 +53,54 @@ void EnemyTableScene::setStartPosition()
     current_item_pos_j = -1;
 }
 
+void EnemyTableScene::drawDestroyed(qint32 headRow, qint32 headColumn, qint32 size, Direction direction)
+{
+    QVector<QString> path = LinkModel::init()->getDistroyedPathBySize(size);
+
+    qint32 current_boat_row = 0;
+    qint32 current_boat_column = 0;
+    qint32 rotation_angle = 0;
+
+    switch (direction) {
+    case Direction::LEFT:
+        rotation_angle = 0;
+        current_boat_column = 1;
+        break;
+    case Direction::RIGHT:
+        rotation_angle = 180;
+        current_boat_column = 1;
+        break;
+    case Direction::DOWN:
+        rotation_angle = 90;
+        current_boat_row = 1;
+        break;
+    case Direction::UP:
+        rotation_angle = 270;
+        current_boat_row = 1;
+        break;
+    }
+
+    for(int j = 0; j < size; j++){
+
+        cells[headRow + (current_boat_row * j)][headColumn + (current_boat_column * j)].image->hide();
+        QGraphicsPixmapItem *destroyed = cells[headRow + (current_boat_row * j)][headColumn + (current_boat_column * j)].destroyedImage;
+
+        if(rotation_angle == 270 || rotation_angle == 180){
+            QPixmap destroyed_pixmap(path[j]);
+            destroyed->setPixmap(destroyed_pixmap.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        }else {
+            QPixmap destroyed_pixmap(path[(size-1) - j]);
+            destroyed->setPixmap(destroyed_pixmap.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        }
+
+        destroyed->setTransformOriginPoint(destroyed->boundingRect().center());
+        destroyed->setRotation(rotation_angle);
+    }
+
+}
+
+
+
 qint32 EnemyTableScene::getCurrent_item_pos_i() const
 {
     return current_item_pos_i;

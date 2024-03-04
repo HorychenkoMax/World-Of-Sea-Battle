@@ -75,11 +75,16 @@ void BattlefieldScene::createBattlefield()
             Cell cell;
             cell.item = rect;
 
+            QGraphicsPixmapItem* destroyedImage = new QGraphicsPixmapItem();
+            destroyedImage->setPos(delta_pos_x, delta_pos_y);
+            addItem(destroyedImage);
+
             QGraphicsPixmapItem* image = new QGraphicsPixmapItem();
             image->setPos(delta_pos_x, delta_pos_y);
             addItem(image);
 
             delta_pos_x = delta_pos_x + w_rect;
+            cell.destroyedImage = destroyedImage;
             cell.image = image;
             cell_array.append(cell);
 
