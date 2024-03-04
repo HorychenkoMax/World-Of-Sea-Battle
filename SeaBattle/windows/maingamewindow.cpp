@@ -65,7 +65,7 @@ void MainGameWindow::readFromOponent(const QString &string)
                         + ":" + QString::number(boat->getSize()) + ":" + QString::number((qint32)boat->getDirection());
             client->send(new_result);
 
-            //need to add a drawing implementation for my board
+            myTableScene->drawEffect(i,j, result);
 
             return;
         }
@@ -95,7 +95,7 @@ void MainGameWindow::readFromOponent(const QString &string)
         QString info = string.sliced(10);
         QStringList list = info.split(":");
 
-        //need to add a drawing implementation for enemy board
+        enemyTableScene->drawDestroyed(list[0].toInt(), list[1].toInt(), list[2].toInt(), (Direction)list[3].toInt());
 
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "windows/locationselectionwindow.h"
 #include "models/connectionproperties.h"
+#include "models/linkmodel.h"
 #include "windows/optionswindow.h"
 #include "socket/socketserver.h"
 #include "windows/loadingwindow.h"
