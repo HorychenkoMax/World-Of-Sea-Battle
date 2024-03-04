@@ -79,15 +79,17 @@ void MainWindow::newClientAfterWaiting(SocketClient *client)
 
 void MainWindow::newClient(SocketClient *client)
 {
-    QTimer::singleShot(2000, this, [this, client](){newClientAfterWaiting(client);});
+    QTimer::singleShot(2000, this, [this, client](){newClientAfterWaiting(client);});  //lambda expression
 }
 
 void MainWindow::connectedToHost()
 {
-    loadingWindow->hide();
-    locationSelectionWindow = new LocationSelectionWindow(client, this);
-    locationSelectionWindow->show();
-    hide();
+    QTimer::singleShot(2000, this, [this](){                                        //lambda expression
+        loadingWindow->hide();
+        locationSelectionWindow = new LocationSelectionWindow(client, this);
+        locationSelectionWindow->show();
+        hide();
+    });
 }
 
 void MainWindow::setProgramView()
