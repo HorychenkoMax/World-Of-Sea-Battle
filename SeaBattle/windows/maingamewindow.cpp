@@ -21,6 +21,9 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
 
     connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
     connect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
+
+
+    ui->label->setText(isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn");
 }
 
 MainGameWindow::~MainGameWindow()
@@ -41,6 +44,51 @@ void MainGameWindow::setBackground()
     this->setPalette(palette);
 }
 
+void MainGameWindow::writeGameLog(CellType type, bool readFromEnemy)
+{
+    QString str;
+    QString previousLogs = ui->label->toPlainText();
+    bool miss = true;
+    switch (type) {
+    case CellType::MISS:
+        str = "MISS";
+        miss = true;
+        break;
+    case CellType::DESTROYED:
+        str = "DESTROYED";
+        miss = false;
+        break;
+    case CellType::HURT:
+        str = "HURT";
+        miss = false;
+        break;
+    }
+
+
+
+    QTimer::singleShot(100, this, [this, readFromEnemy, &str, miss, &previousLogs](){
+        if(readFromEnemy){
+            //str = "Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs;
+            ui->label->setPlainText("Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs);
+        }else {
+            //str = "You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs;
+            ui->label->setPlainText("You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs);
+        }
+
+        QTimer::singleShot(50, this, [this, &previousLogs, &str](){
+            previousLogs = ui->label->toPlainText();
+            str = (isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn\n") + previousLogs;
+            ui->label->setPlainText(str);
+        });
+
+    });
+
+
+
+
+
+}
+
 
 void MainGameWindow::readFromOponent(const QString &string)
 {
@@ -58,6 +106,7 @@ void MainGameWindow::readFromOponent(const QString &string)
             client->send("exist_status");
             return;
         }
+
         if(result == CellType::DESTROYED){
             Boat* boat = battleModel->getBoatByHisDeck(i,j);
             QString new_result = "destroyed=";
@@ -66,6 +115,8 @@ void MainGameWindow::readFromOponent(const QString &string)
             client->send(new_result);
 
             myTableScene->drawEffect(i,j, result);
+
+            writeGameLog(result, true);
 
             return;
         }
@@ -77,6 +128,7 @@ void MainGameWindow::readFromOponent(const QString &string)
             isMyTurn = true;
             ui->attack->setEnabled(isMyTurn);
         }
+        writeGameLog(result, true);
         return;
 
     }else if(string.startsWith("result=")){
@@ -86,6 +138,7 @@ void MainGameWindow::readFromOponent(const QString &string)
             isMyTurn = true;
             ui->attack->setEnabled(isMyTurn);
         }
+        writeGameLog(type, false);
         return;
     }else if(string.startsWith("exist_status")){
         isMyTurn = true;
@@ -99,6 +152,7 @@ void MainGameWindow::readFromOponent(const QString &string)
 
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);
+        writeGameLog(CellType::DESTROYED, false);
         return;
     }
 }

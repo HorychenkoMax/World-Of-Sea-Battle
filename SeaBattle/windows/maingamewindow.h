@@ -6,6 +6,7 @@
 #include <QGraphicsRectItem>
 #include <QPixmap>
 #include <QMessageBox>
+#include <QTimer>
 #include "scenes/mytablescene.h"
 #include "scenes/enemytablescene.h"
 #include "models/battlemodel.h"
@@ -37,6 +38,7 @@ private:
     QVector<Boat> boats;
 
     void setBackground();
+    void writeGameLog(CellType type, bool readFromEnemy);
 
 private slots:
     void readFromOponent(const QString &string);

@@ -137,6 +137,56 @@ QPushButton:pressed {
      <string>Rotate boats</string>
     </property>
    </widget>
+   <widget class="QLabel" name="InformationLabel">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>40</y>
+      <width>221</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>221</width>
+      <height>371</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe Script</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="tabletTracking">
+     <bool>false</bool>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(135, 206, 250, 0.5);
+color: #FFFFFF;</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Place your ships on a 10x10 grid. You have a certain number of ships of different sizes: one four-deck, two three-deck, three two-deck, and four single-deck ships. Arrange them in a way that they do not intersect or overlap. You cannot proceed until all ships are placed.</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::PlainText</enum>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -144,7 +194,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
