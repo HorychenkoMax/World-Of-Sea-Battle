@@ -22,8 +22,10 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
     connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
     connect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
 
+    logModel = new GameLogeModel(ui->label);
 
     ui->label->setText(isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn");
+
 }
 
 MainGameWindow::~MainGameWindow()
@@ -32,6 +34,7 @@ MainGameWindow::~MainGameWindow()
     delete myTableScene;
     delete enemyTableScene;
     delete client;
+    delete logModel;
 
 }
 
@@ -42,51 +45,6 @@ void MainGameWindow::setBackground()
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
-}
-
-void MainGameWindow::writeGameLog(CellType type, bool readFromEnemy)
-{
-    QString str;
-    QString previousLogs = ui->label->toPlainText();
-    bool miss = true;
-    switch (type) {
-    case CellType::MISS:
-        str = "MISS";
-        miss = true;
-        break;
-    case CellType::DESTROYED:
-        str = "DESTROYED";
-        miss = false;
-        break;
-    case CellType::HURT:
-        str = "HURT";
-        miss = false;
-        break;
-    }
-
-
-
-    QTimer::singleShot(100, this, [this, readFromEnemy, &str, miss, &previousLogs](){
-        if(readFromEnemy){
-            //str = "Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs;
-            ui->label->setPlainText("Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs);
-        }else {
-            //str = "You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs;
-            ui->label->setPlainText("You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs);
-        }
-
-        QTimer::singleShot(50, this, [this, &previousLogs, &str](){
-            previousLogs = ui->label->toPlainText();
-            str = (isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn\n") + previousLogs;
-            ui->label->setPlainText(str);
-        });
-
-    });
-
-
-
-
-
 }
 
 
@@ -116,7 +74,8 @@ void MainGameWindow::readFromOponent(const QString &string)
 
             myTableScene->drawEffect(i,j, result);
 
-            writeGameLog(result, true);
+
+            logModel->writeGameLog(result, true, isMyTurn);
 
             return;
         }
@@ -128,7 +87,9 @@ void MainGameWindow::readFromOponent(const QString &string)
             isMyTurn = true;
             ui->attack->setEnabled(isMyTurn);
         }
-        writeGameLog(result, true);
+
+        logModel->writeGameLog(result, true, isMyTurn);
+
         return;
 
     }else if(string.startsWith("result=")){
@@ -138,7 +99,9 @@ void MainGameWindow::readFromOponent(const QString &string)
             isMyTurn = true;
             ui->attack->setEnabled(isMyTurn);
         }
-        writeGameLog(type, false);
+
+        logModel->writeGameLog(type, false, isMyTurn);
+
         return;
     }else if(string.startsWith("exist_status")){
         isMyTurn = true;
@@ -152,7 +115,9 @@ void MainGameWindow::readFromOponent(const QString &string)
 
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);
-        writeGameLog(CellType::DESTROYED, false);
+
+        logModel->writeGameLog(CellType::DESTROYED, false, isMyTurn);
+
         return;
     }
 }

@@ -11,6 +11,7 @@
 #include "scenes/enemytablescene.h"
 #include "models/battlemodel.h"
 #include "socket/socketclient.h"
+#include "models/gamelogemodel.h"
 
 namespace Ui {
 class MainGameWindow;
@@ -32,6 +33,7 @@ private:
     EnemyTableScene *enemyTableScene;
     BattleModel *battleModel;
     SocketClient *client;
+    GameLogeModel *logModel;
     bool isMyTurn;
     qint32 current_i, current_j;
 
