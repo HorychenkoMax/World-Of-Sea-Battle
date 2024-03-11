@@ -6,6 +6,7 @@
 #include "windows/maingamewindow.h"
 #include "scenes/locationselectionscene.h"
 #include "socket/socketclient.h"
+#include "windows/loadingwindow.h"
 
 namespace Ui {
 class LocationSelectionWindow;
@@ -26,15 +27,20 @@ private slots:
 
     void oponentDisconnected();
 
+    void readFromOponent(const QString &string);
+
 private:
     Ui::LocationSelectionWindow *ui;
     MainGameWindow *mainGameWindow;
     LocationSelectionScene *locationSelectionScene;
     SocketClient *client;
     QWidget *parent;
+    bool oponentRedy = false;
+    LoadingWindow *loadingWindow;
 
 
     void setBackground();
+    void afterConnection();
 };
 
 #endif // LOCATIONSELECTIONWINDOW_H

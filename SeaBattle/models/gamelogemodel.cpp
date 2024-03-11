@@ -1,6 +1,25 @@
 #include "gamelogemodel.h"
 
-GameLogeModel::GameLogeModel (QTextEdit *label) :label(label) {}
+void GameLogeModel::increaseNumberOfBoat(qint32 size)
+{
+    switch (size) {
+    case 1:
+        one_deck++;
+        break;
+    case 2:
+        two_deck++;
+        break;
+    case 3:
+        three_deck++;
+        break;
+    case 4:
+        four_deck++;
+        break;
+    }
+    allBoat++;
+}
+
+GameLogeModel::GameLogeModel (QTextEdit *logs, QTextEdit *information) :logs(logs), information(information) {}
 
 void GameLogeModel::writeGameLog(CellType type, bool readFromEnemy, bool isMyTurn)
 {
@@ -18,22 +37,31 @@ void GameLogeModel::writeGameLog(CellType type, bool readFromEnemy, bool isMyTur
         miss = false;
         break;
     }
-    previousLogs = label->toPlainText();
+    previousLogs = logs->toPlainText();
 
     QTimer::singleShot(300, [this, readFromEnemy, isMyTurn](){
         if(readFromEnemy){
-            label->setPlainText("Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs);
+            logs->setPlainText("Enemy " + str + (!miss ? " your boat\n": "\n") + previousLogs);
 
         }else {
-            label->setPlainText("You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs);
+            logs->setPlainText("You " + str + (!miss ? " enemy`s boat\n": "\n") + previousLogs);
         }
 
         QTimer::singleShot(400, [this, isMyTurn](){
-            previousLogs = label->toPlainText();
+            previousLogs = logs->toPlainText();
             str = (isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn\n") + previousLogs;
-            label->setPlainText(str);
+            logs->setPlainText(str);
         });
 
     });
 
+}
+
+void GameLogeModel::writeCounter(qint32 size)
+{
+    if(size != 0){
+        increaseNumberOfBoat(size);
+    }
+    information->setPlainText("You destroyed:\nfour-deck: " + QString::number(four_deck) + "/1\nthree-deck: " + QString::number(three_deck) +
+                              "/2\ntwo-deck: " + QString::number(two_deck) + "/3\nsingle-deck: " + QString::number(one_deck) + "/4");
 }

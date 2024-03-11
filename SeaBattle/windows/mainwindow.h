@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void enableAllBottoms();
 
 private slots:
     void on_hostButton_clicked();
@@ -34,6 +35,7 @@ private slots:
     void newClient(SocketClient *client);
 
     void connectedToHost();
+
 private:
     Ui::MainWindow *ui;
     LocationSelectionWindow *locationSelectionWindow = nullptr;
@@ -48,5 +50,6 @@ private:
     void setProgramView();
     void getOptionWindow();
     void newClientAfterWaiting(SocketClient *client);
+    void disableAllBottoms();
 };
 #endif // MAINWINDOW_H

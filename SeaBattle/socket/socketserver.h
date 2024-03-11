@@ -6,6 +6,7 @@
 #include "socket/socketclient.h"
 #include <QRandomGenerator>
 
+
 class SocketServer : public QObject
 {
     Q_OBJECT

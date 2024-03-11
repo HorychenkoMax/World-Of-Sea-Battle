@@ -18,6 +18,7 @@ bool SocketServer::run(const QString &host, qint32 port)
 
 void SocketServer::close()
 {
+
     server->close();
 }
 

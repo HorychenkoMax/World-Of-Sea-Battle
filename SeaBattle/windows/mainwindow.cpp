@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     client = new SocketClient();
     connect(client, SIGNAL(connectedToHost()), this, SLOT(connectedToHost()));
 
-    loadingWindow = new LoadingWindow([&](){server.close();});
+    loadingWindow = new LoadingWindow([&](){server.close(); enableAllBottoms();});
 }
 
 MainWindow::~MainWindow()
@@ -38,6 +38,7 @@ void MainWindow::on_hostButton_clicked()
         bool isSuccess = server.run(ConnectionProperties::init()->getMy_host_id(), ConnectionProperties::init()->getMy_port());
         if(isSuccess){
             loadingWindow->show();
+            disableAllBottoms();
             return;
         }
     }
@@ -52,6 +53,7 @@ void MainWindow::on_ConnectButton_clicked()
     if(ConnectionProperties::init()->corectInformationForConnection()){
         client->run(ConnectionProperties::init()->getOther_host_id(), ConnectionProperties::init()->getOther_port());
         loadingWindow->show();
+        disableAllBottoms();
     }else {
         getOptionWindow();
     }
@@ -75,6 +77,23 @@ void MainWindow::newClientAfterWaiting(SocketClient *client)
     locationSelectionWindow = new LocationSelectionWindow(client, this);
     locationSelectionWindow->show();
     hide();
+    enableAllBottoms();
+}
+
+void MainWindow::disableAllBottoms()
+{
+    ui->hostButton->setDisabled(true);
+    ui->ConnectButton->setDisabled(true);
+    ui->changeSkinButton->setDisabled(true);
+    ui->optionButton->setDisabled(true);
+}
+
+void MainWindow::enableAllBottoms()
+{
+    ui->hostButton->setDisabled(false);
+    ui->ConnectButton->setDisabled(false);
+    ui->changeSkinButton->setDisabled(false);
+    ui->optionButton->setDisabled(false);
 }
 
 void MainWindow::newClient(SocketClient *client)
@@ -89,6 +108,7 @@ void MainWindow::connectedToHost()
         locationSelectionWindow = new LocationSelectionWindow(client, this);
         locationSelectionWindow->show();
         hide();
+        enableAllBottoms();
     });
 }
 

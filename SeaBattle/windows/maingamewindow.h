@@ -36,11 +36,13 @@ private:
     GameLogeModel *logModel;
     bool isMyTurn;
     qint32 current_i, current_j;
+    qint32 numberOfDestroyedBoat = 0;
 
     QVector<Boat> boats;
 
     void setBackground();
     void writeGameLog(CellType type, bool readFromEnemy);
+    bool isWin();
 
 private slots:
     void readFromOponent(const QString &string);

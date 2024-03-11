@@ -22,9 +22,10 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
     connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
     connect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
 
-    logModel = new GameLogeModel(ui->label);
+    logModel = new GameLogeModel(ui->logs, ui->information);
 
-    ui->label->setText(isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn");
+    ui->logs->setText(isMyTurn ? "Now it`s your turn\n":"Enemy is taking their turn");
+    logModel->writeCounter(0);
 
 }
 
@@ -45,6 +46,11 @@ void MainGameWindow::setBackground()
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
+}
+
+bool MainGameWindow::isWin()
+{
+    return numberOfDestroyedBoat >= 10;
 }
 
 
@@ -73,7 +79,6 @@ void MainGameWindow::readFromOponent(const QString &string)
             client->send(new_result);
 
             myTableScene->drawEffect(i,j, result);
-
 
             logModel->writeGameLog(result, true, isMyTurn);
 
@@ -113,10 +118,14 @@ void MainGameWindow::readFromOponent(const QString &string)
 
         enemyTableScene->drawDestroyed(list[0].toInt(), list[1].toInt(), list[2].toInt(), (Direction)list[3].toInt());
 
+        numberOfDestroyedBoat++;
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);
 
         logModel->writeGameLog(CellType::DESTROYED, false, isMyTurn);
+        logModel->writeCounter(list[2].toInt());
+
+
 
         return;
     }
