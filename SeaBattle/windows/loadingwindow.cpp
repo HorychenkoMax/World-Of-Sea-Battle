@@ -8,14 +8,14 @@ LoadingWindow::LoadingWindow(Function func, QWidget *parent)
 {
     ui->setupUi(this);
     setBackground();
-    loadingScene = new LoadingScene();
-    ui->graphicsView->setScene(loadingScene);
+    //loadingScene = new LoadingScene();
+    //ui->graphicsView->setScene(loadingScene);
 }
 
 LoadingWindow::~LoadingWindow()
 {
     delete ui;
-    delete loadingScene;
+    //delete loadingScene;
 }
 
 void LoadingWindow::closeEvent(QCloseEvent *event)
@@ -31,4 +31,9 @@ void LoadingWindow::setBackground()
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
+
+    QMovie *movie = new QMovie(":/resources/gifs/gif.gif");
+    //QLabel *processLabel = new QLabel(this);
+    ui->gif_label->setMovie(movie);
+    movie->start();
 }

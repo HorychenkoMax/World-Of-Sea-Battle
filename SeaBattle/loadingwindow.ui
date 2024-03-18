@@ -15,10 +15,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGraphicsView" name="graphicsView">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(255, 255, 255, 0);
-border: none;</string>
+    <widget class="QLabel" name="gif_label">
+     <property name="text">
+      <string>TextLabel</string>
      </property>
     </widget>
    </item>

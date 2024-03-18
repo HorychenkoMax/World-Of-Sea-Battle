@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <functional>
 #include <QCloseEvent>
+#include <QMovie>
 #include "scenes/loadingscene.h"
 
 using Function=std::function<void(void)>;
