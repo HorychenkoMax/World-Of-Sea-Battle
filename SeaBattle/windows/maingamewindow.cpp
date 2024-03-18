@@ -34,7 +34,6 @@ MainGameWindow::~MainGameWindow()
     delete ui;
     delete myTableScene;
     delete enemyTableScene;
-    delete client;
     delete logModel;
 
 }
@@ -51,6 +50,21 @@ void MainGameWindow::setBackground()
 bool MainGameWindow::isWin()
 {
     return numberOfDestroyedBoat >= 10;
+}
+
+void MainGameWindow::disconnectClients()
+{
+    disconnect(client, SIGNAL(oponentDisconnected()), this, SLOT(oponentDisconnected()));
+    disconnect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
+    client->disconnectFromHost();
+}
+
+void MainGameWindow::openLastWindow()
+{
+    LastWindow *lastWindow = new LastWindow(parent);
+    lastWindow->setText(isWin());
+    lastWindow->show();
+    close();
 }
 
 
@@ -95,8 +109,6 @@ void MainGameWindow::readFromOponent(const QString &string)
 
         logModel->writeGameLog(result, true, isMyTurn);
 
-        return;
-
     }else if(string.startsWith("result=")){
         CellType type = (CellType)string.sliced(7).toInt();
         enemyTableScene->drawEffect(current_i, current_j, type);
@@ -107,11 +119,11 @@ void MainGameWindow::readFromOponent(const QString &string)
 
         logModel->writeGameLog(type, false, isMyTurn);
 
-        return;
+
     }else if(string.startsWith("exist_status")){
         isMyTurn = true;
         ui->attack->setEnabled(isMyTurn);
-        return;
+
     }else if(string.startsWith("destroyed=")){
         QString info = string.sliced(10);
         QStringList list = info.split(":");
@@ -125,9 +137,15 @@ void MainGameWindow::readFromOponent(const QString &string)
         logModel->writeGameLog(CellType::DESTROYED, false, isMyTurn);
         logModel->writeCounter(list[2].toInt());
 
+        if(isWin()){
+            client->send("Im win");
+            disconnectClients();
+            openLastWindow();
+        }
 
-
-        return;
+    }else if(string.contains("Im win")){
+        disconnectClients();
+        openLastWindow();
     }
 }
 

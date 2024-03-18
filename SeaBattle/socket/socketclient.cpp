@@ -7,6 +7,11 @@ bool SocketClient::getIsMyTurn() const
     return isMyTurn;
 }
 
+void SocketClient::disconnectFromHost()
+{
+    socket->close();
+}
+
 void SocketClient::connectAll()
 {
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));

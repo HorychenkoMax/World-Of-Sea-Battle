@@ -20,6 +20,7 @@ public:
     void run(const QString &host, qint32 port);
 
     bool getIsMyTurn() const;
+    void disconnectFromHost();
 
 private slots:
     void connected();

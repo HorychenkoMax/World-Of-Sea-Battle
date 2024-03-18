@@ -12,6 +12,7 @@
 #include "models/battlemodel.h"
 #include "socket/socketclient.h"
 #include "models/gamelogemodel.h"
+#include "windows/lastwindow.h"
 
 namespace Ui {
 class MainGameWindow;
@@ -22,7 +23,7 @@ class MainGameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainGameWindow(SocketClient *client, BattleModel *battleModel ,QWidget *parent);
+    explicit MainGameWindow(SocketClient *client, BattleModel *battleModel, QWidget *parent);
     ~MainGameWindow();
 
 
@@ -43,6 +44,8 @@ private:
     void setBackground();
     void writeGameLog(CellType type, bool readFromEnemy);
     bool isWin();
+    void disconnectClients();
+    void openLastWindow();
 
 private slots:
     void readFromOponent(const QString &string);
