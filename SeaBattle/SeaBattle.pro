@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,7 @@ SOURCES += \
     models/connectionproperties.cpp \
     models/gamelogemodel.cpp \
     models/linkmodel.cpp \
+    models/mediaplayer.cpp \
     scenes/battlefieldscene.cpp \
     scenes/enemytablescene.cpp \
     scenes/loadingscene.cpp \
@@ -40,6 +41,8 @@ HEADERS += \
     models/direction.h \
     models/gamelogemodel.h \
     models/linkmodel.h \
+    models/mediaplayer.h \
+    models/musictype.h \
     scenes/battlefieldscene.h \
     scenes/enemytablescene.h \
     scenes/loadingscene.h \
@@ -106,3 +109,6 @@ DISTFILES += \
     resources/ships_images/old/two_battleship/two_battleship-up.png \
     resources/ships_images/old/two_battleship/two_battleship_cut/two_battleship-removebg_1.png \
     resources/ships_images/old/two_battleship/two_battleship_cut/two_battleship-removebg_2.png
+
+
+#RC_ICONS += resources/main_window_images/windowIcon.jpg

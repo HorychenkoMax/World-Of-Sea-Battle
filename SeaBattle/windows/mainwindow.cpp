@@ -11,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     setProgramView();
 
+    player = new MediaPlayer();
+    player->paly(MusicType::BACKGROUND_MUSIC);
+    player->setLoops(-1);
+
     ConnectionProperties::init();
     connect(&server, SIGNAL(newClient(SocketClient*)), this, SLOT(newClient(SocketClient*)));
 
@@ -18,6 +22,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(client, SIGNAL(connectedToHost()), this, SLOT(connectedToHost()));
 
     loadingWindow = new LoadingWindow([&](){server.close(); enableAllBottoms();});
+
+   /* player = new QMediaPlayer();
+    output = new QAudioOutput();
+    player->setAudioOutput(output);
+    player->setSource(QUrl("qrc:/resources/music/Ignis(chosic.com).mp3"));
+    output->setVolume(1);
+    player->play();
+    player->setLoops(-1);*/
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +41,7 @@ MainWindow::~MainWindow()
     delete optionsWindow;
     delete client;
     delete loadingWindow;
+    delete player;
 }
 
 

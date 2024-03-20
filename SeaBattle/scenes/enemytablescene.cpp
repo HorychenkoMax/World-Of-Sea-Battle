@@ -1,7 +1,8 @@
 #include "scenes/enemytablescene.h"
 
-EnemyTableScene::EnemyTableScene(QObject *parent)
+EnemyTableScene::EnemyTableScene( MediaPlayer *player, QObject *parent)
     : BattlefieldScene{parent}
+    , player(player)
 {
     createBattlefield();
     createPixmaps();
@@ -41,9 +42,11 @@ void EnemyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
     if(type == CellType::MISS){
         cells[i][j].image->setPixmap(splater);
         cells[i][j].isClicked = true;
+        player->paly(MusicType::MISS_MUSIC);
     }else if(type == CellType::HURT){
         cells[i][j].image->setPixmap(boom);
         cells[i][j].isClicked = true;
+        player->paly(MusicType::BLAST_MUSIC);
     }
 }
 
@@ -96,7 +99,7 @@ void EnemyTableScene::drawDestroyed(qint32 headRow, qint32 headColumn, qint32 si
         destroyed->setTransformOriginPoint(destroyed->boundingRect().center());
         destroyed->setRotation(rotation_angle);
     }
-
+    player->paly(MusicType::BLAST_MUSIC);
 }
 
 

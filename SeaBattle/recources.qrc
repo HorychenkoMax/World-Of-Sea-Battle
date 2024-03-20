@@ -46,5 +46,8 @@
         <file>resources/ships_images/old/two_battleship/cut/destroyed/1.png</file>
         <file>resources/ships_images/old/two_battleship/cut/destroyed/2.png</file>
         <file>resources/gifs/gif.gif</file>
+        <file>resources/music/water.mp3</file>
+        <file>resources/music/boom.mp3</file>
+        <file>resources/music/Ignis(chosic.com).mp3</file>
     </qresource>
 </RCC>

@@ -5,11 +5,12 @@
 #include "scenes/battlefieldscene.h"
 #include "models/direction.h"
 #include "models/linkmodel.h"
+#include "models/mediaplayer.h"
 
 class EnemyTableScene : public BattlefieldScene
 {
 public:
-    explicit EnemyTableScene(QObject *parent = nullptr);
+    explicit EnemyTableScene(MediaPlayer *player, QObject *parent = nullptr);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void drawFog();
@@ -24,6 +25,7 @@ private:
     qint32 current_item_pos_i = -1, current_item_pos_j = -1;
     QPixmap fog, sight, splater, boom;
     qint32 w = 33, h = 33;
+    MediaPlayer *player;
 
     void createPixmaps();
 };

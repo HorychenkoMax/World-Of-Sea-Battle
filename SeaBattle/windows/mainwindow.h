@@ -9,6 +9,7 @@
 #include "windows/optionswindow.h"
 #include "socket/socketserver.h"
 #include "windows/loadingwindow.h"
+#include "models/mediaplayer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,6 +44,8 @@ private:
     SocketServer server;
     SocketClient *client;
     LoadingWindow *loadingWindow;
+    MediaPlayer *player;
+
 
     const QString BACKGROUND_PATH = ":/resources/main_window_images/mainWindowBackground.jpg";
     const QString WINDOW_ICON_PATH = ":/resources/main_window_images/windowIcon.jpg";

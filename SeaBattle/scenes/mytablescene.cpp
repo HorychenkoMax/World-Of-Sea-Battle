@@ -1,7 +1,8 @@
 #include "scenes/mytablescene.h"
 
-MyTableScene::MyTableScene(QObject *parent)
+MyTableScene::MyTableScene(MediaPlayer *player, QObject *parent)
     : BattlefieldScene{parent}
+    , player(player)
 {
     createBattlefield();
 }
@@ -70,11 +71,13 @@ void MyTableScene::drawEffect(qint32 i, qint32 j, CellType type)
     if(type == CellType::MISS){
         QPixmap splater(":/resources/effects/splater.png");
         cells[i][j].image->setPixmap(splater.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+        player->paly(MusicType::MISS_MUSIC);
     }else if(type == CellType::HURT || type == CellType::DESTROYED){
         //QPixmap boom(":/resources/effects/boom.png");
         //cells[i][j].image->setPixmap(boom.scaled(w_rect, h_rect, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         cells[i][j].image->hide();
         cells[i][j].destroyedImage->show();
+        player->paly(MusicType::BLAST_MUSIC);
     }
 }
 

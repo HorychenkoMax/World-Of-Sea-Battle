@@ -10,13 +10,17 @@ MainGameWindow::MainGameWindow(SocketClient *client, BattleModel *battleModel, Q
     ,isMyTurn(client->getIsMyTurn())
 {
     ui->setupUi(this);
+
+    player = new MediaPlayer();
+
     setBackground();
 
-    myTableScene = new MyTableScene();
+
+    myTableScene = new MyTableScene(player);
     ui->myTable->setScene(myTableScene);
     myTableScene->drawBoats(battleModel->getBoats());
 
-    enemyTableScene = new EnemyTableScene();
+    enemyTableScene = new EnemyTableScene(player);
     ui->enemyTable->setScene(enemyTableScene);
 
     connect(client, SIGNAL(readFromOponent(const QString&)), this, SLOT(readFromOponent(const QString &)));
@@ -35,6 +39,7 @@ MainGameWindow::~MainGameWindow()
     delete myTableScene;
     delete enemyTableScene;
     delete logModel;
+    delete player;
 
 }
 

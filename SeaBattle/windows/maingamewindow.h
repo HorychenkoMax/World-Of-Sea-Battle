@@ -13,6 +13,7 @@
 #include "socket/socketclient.h"
 #include "models/gamelogemodel.h"
 #include "windows/lastwindow.h"
+#include "models/mediaplayer.h"
 
 namespace Ui {
 class MainGameWindow;
@@ -38,7 +39,7 @@ private:
     bool isMyTurn;
     qint32 current_i, current_j;
     qint32 numberOfDestroyedBoat = 0;
-
+    MediaPlayer *player;
     QVector<Boat> boats;
 
     void setBackground();

@@ -33,7 +33,6 @@ void LoadingWindow::setBackground()
     this->setPalette(palette);
 
     QMovie *movie = new QMovie(":/resources/gifs/gif.gif");
-    //QLabel *processLabel = new QLabel(this);
     ui->gif_label->setMovie(movie);
     movie->start();
 }

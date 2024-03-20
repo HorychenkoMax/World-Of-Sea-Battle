@@ -20,7 +20,6 @@ void ConnectionProperties::saveInformation()
     QFile file(FILE_NAME);
 
     if(!file.open(QFile::WriteOnly)){
-        qDebug() << "cant open for write";
         return;
     }
 
@@ -39,7 +38,6 @@ void ConnectionProperties::downloadInformation()
     QFile file(FILE_NAME);
 
     if(!file.open(QFile::ReadOnly)){
-        qDebug() << "cant open for read";
         return;
     }
 
